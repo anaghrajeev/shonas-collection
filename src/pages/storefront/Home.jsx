@@ -39,7 +39,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-b from-surface/30 to-surface/90"></div>
         </div>
         <div className="relative z-10 max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop text-center flex flex-col items-center gap-6">
-          <h1 className="font-display-lg text-display-lg text-primary max-w-4xl tracking-tight leading-tight animate-fade-in-up">
+          <h1 className="font-display-lg text-[36px] md:text-display-lg text-primary max-w-4xl tracking-tight leading-tight animate-fade-in-up">
             Your Trusted Partner For Personalized Indian Shopping.
           </h1>
           <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
@@ -56,14 +56,14 @@ export default function Home() {
         </div>
       </section>
 
-      <div className="w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-24 flex flex-col gap-32">
+      <div className="w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16 md:py-24 flex flex-col gap-16 md:gap-32">
         <section className="flex flex-col gap-12">
           <div className="flex flex-col items-center gap-4 text-center">
             <span className="material-symbols-outlined text-outline-variant opacity-50" style={{ fontSize: '32px' }}>diamond</span>
             <h2 className="font-headline-lg text-headline-lg text-primary">Explore Our Collections</h2>
             <div className="w-16 h-px bg-outline-variant"></div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-gutter auto-rows-[300px]">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-gutter auto-rows-[250px] md:auto-rows-[300px]">
             <a className="group relative md:col-span-2 md:row-span-2 rounded-xl overflow-hidden bg-surface ambient-shadow block" href="#">
               <img className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Customized Madisar & Panchagacham" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCa0Bf_7EjuFu0_vx-HD2-n-pVMgP2r8-6zsGUXjb5O13zdYgALJIR5Br6s5hiGAvykg1TevTUTXMLxcVobWr4VM4TI1xHmn1AwS_3GGVbTPW8qkl3e8kFqkNrwHG1kIqgY5pDj-xjkGCMJAg6hCagy6hohW4S75a3Z4C_gK24joTBcKeFyZbhZ_BbMk8MABb5nOUm_Ydm48LRMJZy24kktFw5nb8t0sDOCI8uCtzh9CDHByQSpjs0oZuMiKk-jMQAnyZPf8Qzwjfl" />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent"></div>
@@ -101,13 +101,13 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="flex flex-col gap-12 bg-surface-container-low p-12 rounded-2xl mandala-bg">
+        <section className="flex flex-col gap-8 md:gap-12 bg-surface-container-low p-6 md:p-12 rounded-2xl mandala-bg">
           <div className="flex flex-col items-center gap-4 text-center">
             <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full ambient-shadow">
               <span className="material-symbols-outlined text-[#FBBC04]" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
               <span className="font-label-lg text-label-lg text-primary">5.0 Google Rating</span>
             </div>
-            <h2 className="font-headline-lg text-headline-lg text-primary">Trusted by Families Worldwide</h2>
+            <h2 className="font-headline-lg text-[28px] md:text-headline-lg text-primary">Trusted by Families Worldwide</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {visibleReviews.map((t, i) => (
@@ -130,13 +130,13 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-          <div className="relative rounded-2xl overflow-hidden ambient-shadow h-[600px]">
+        <section className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
+          <div className="relative rounded-2xl overflow-hidden ambient-shadow h-[400px] md:h-[600px]">
             <img className="w-full h-full object-cover" alt="Founder" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfluf4eTrLPCy4vyxk31Tg5hP_8rl_ZcPC-ZkWQsI_LXtP78sRDdceTib43BBtW7_x-8dDrYKqZXUKyWh6fCy8Ei1jp7Yhc7XZF6l4YUDxRtoVqthna6dCn0tTzlhGWnNAYHP3IKGaokeUL2LTmB0-Vrh9MIm6cBHSbEdN-z46rsHbLZ9Ra88i_ZER7amvpZ-7oxFV7X5O99NyhGFAt90JhvsiRVaaMlquQeSNFCB2Qw5fqPqfNvSRrPKA7bfeUFnHmc8trZDMUl7b" />
           </div>
           <div className="flex flex-col gap-6">
             <span className="font-label-lg text-label-lg text-outline uppercase tracking-widest">Our Story</span>
-            <h2 className="font-display-lg text-display-lg text-primary leading-tight">Crafting Modern Heritage.</h2>
+            <h2 className="font-display-lg text-[32px] md:text-display-lg text-primary leading-tight">Crafting Modern Heritage.</h2>
             <div className="w-12 h-1 bg-primary-container"></div>
             <div className="font-body-lg text-body-lg text-on-surface-variant space-y-4">
               <p>
