@@ -33,31 +33,47 @@ export default function Home() {
 
   return (
     <>
-      <section className="relative w-full min-h-[80vh] flex items-center justify-center bg-surface-container-low overflow-hidden">
+      <section className="relative w-full min-h-[90vh] flex items-center justify-center bg-surface overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <div className="w-full h-full hero-parallax opacity-80" style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuCM2qvDlwrv61QphnTu1n0CIDunjZ8pFFFR8LjU7YKbSJxNtdudByhZax-RLGtPLy4hscO5aTbNO1Fp4S8oruj9q2qmlLWSDe-7dYK8lsIGnHJON91nr9DaZ1ifw-o4eQIwF1527OV33gFA0b7yDOeVYz__iwoxcSnPsVWwRhFzLb_MMDyokos4xwgiPvFedumjSLC-EQcXY6EU6hIifgiVucwpODIrz6KcN9IZ6HAjUG_Wx5ZK6qurCxKFX9zBF5wSZroeYBKimPkY')" }}></div>
-          <div className="absolute inset-0 bg-gradient-to-b from-surface/30 to-surface/90"></div>
+          <div className="w-full h-full hero-parallax opacity-60 scale-105" style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuCM2qvDlwrv61QphnTu1n0CIDunjZ8pFFFR8LjU7YKbSJxNtdudByhZax-RLGtPLy4hscO5aTbNO1Fp4S8oruj9q2qmlLWSDe-7dYK8lsIGnHJON91nr9DaZ1ifw-o4eQIwF1527OV33gFA0b7yDOeVYz__iwoxcSnPsVWwRhFzLb_MMDyokos4xwgiPvFedumjSLC-EQcXY6EU6hIifgiVucwpODIrz6KcN9IZ6HAjUG_Wx5ZK6qurCxKFX9zBF5wSZroeYBKimPkY')" }}></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/80 to-surface/30"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-surface/50 to-transparent"></div>
         </div>
-        <div className="relative z-10 max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop text-center flex flex-col items-center gap-6">
-          <h1 className="font-display-lg text-[36px] md:text-display-lg text-primary max-w-4xl tracking-tight leading-tight animate-fade-in-up">
-            Your Trusted Partner For Personalized Indian Shopping.
+        
+        <div className="relative z-10 max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop text-center flex flex-col items-center">
+          
+          <div className="mb-6 animate-fade-in-up flex items-center justify-center gap-4">
+            <div className="h-px w-12 bg-primary/40"></div>
+            <span className="font-label-md text-label-md text-primary tracking-[0.3em] uppercase">Shona's Collection</span>
+            <div className="h-px w-12 bg-primary/40"></div>
+          </div>
+
+          <h1 className="font-display-lg text-[42px] md:text-[64px] text-on-surface max-w-5xl tracking-tight leading-[1.1] animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+            <span className="block text-primary italic mb-2 font-light">Crafting</span>
+            Modern Heritage.
           </h1>
-          <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-            From Authentic Readymade Madisars to Exquisite Navratri Decor. Custom-crafted in Kerala, delivered to your doorstep worldwide.
+          
+          <p className="mt-8 font-body-lg text-body-lg text-on-surface-variant max-w-2xl animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+            From authentic readymade Madisars to exquisite Navratri decor. Custom-crafted in Kerala, delivered to your doorstep worldwide.
           </p>
-          <a className="mt-8 bg-primary-container text-white font-label-lg text-label-lg px-8 py-4 rounded-full uppercase tracking-widest hover:bg-primary transition-colors flex items-center gap-2 ambient-shadow animate-fade-in-up hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(106,26,46,0.3)] duration-300" href="#" style={{ animationDelay: '0.4s' }}>
-            <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>chat</span>
-            Chat with Us on WhatsApp
-          </a>
-          <div className="absolute bottom-[-100px] left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-pulse-slow">
-            <span className="font-label-md text-label-md text-primary/60 uppercase tracking-[0.2em]">Scroll</span>
-            <span className="material-symbols-outlined text-primary/60">keyboard_double_arrow_down</span>
+
+          <div className="mt-12 flex flex-col sm:flex-row gap-6 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+            <a className="bg-primary text-white font-label-lg text-label-lg px-10 py-4 rounded-none uppercase tracking-[0.2em] hover:bg-primary-container transition-all duration-500 border border-primary hover:shadow-[0_0_30px_rgba(77,2,26,0.2)]" href="#collections">
+              Explore Collections
+            </a>
+            <a className="bg-transparent text-primary font-label-lg text-label-lg px-10 py-4 rounded-none uppercase tracking-[0.2em] hover:bg-primary/5 transition-all duration-500 border border-primary/30" href="#story">
+              Our Story
+            </a>
+          </div>
+
+          <div className="absolute bottom-[-60px] left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 animate-pulse-slow">
+            <div className="w-[1px] h-16 bg-gradient-to-b from-primary/60 to-transparent"></div>
           </div>
         </div>
       </section>
 
       <div className="w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16 md:py-24 flex flex-col gap-16 md:gap-32">
-        <section className="flex flex-col gap-12">
+        <section id="collections" className="flex flex-col gap-12 pt-8">
           <div className="flex flex-col items-center gap-4 text-center">
             <span className="material-symbols-outlined text-outline-variant opacity-50" style={{ fontSize: '32px' }}>diamond</span>
             <h2 className="font-headline-lg text-headline-lg text-primary">Explore Our Collections</h2>
@@ -130,7 +146,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
+        <section id="story" className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center pt-8">
           <div className="relative rounded-2xl overflow-hidden ambient-shadow h-[400px] md:h-[600px]">
             <img className="w-full h-full object-cover" alt="Founder" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfluf4eTrLPCy4vyxk31Tg5hP_8rl_ZcPC-ZkWQsI_LXtP78sRDdceTib43BBtW7_x-8dDrYKqZXUKyWh6fCy8Ei1jp7Yhc7XZF6l4YUDxRtoVqthna6dCn0tTzlhGWnNAYHP3IKGaokeUL2LTmB0-Vrh9MIm6cBHSbEdN-z46rsHbLZ9Ra88i_ZER7amvpZ-7oxFV7X5O99NyhGFAt90JhvsiRVaaMlquQeSNFCB2Qw5fqPqfNvSRrPKA7bfeUFnHmc8trZDMUl7b" />
           </div>
