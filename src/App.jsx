@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // Layouts
 import StoreLayout from './components/layout/StoreLayout';
 import AdminLayout from './components/layout/AdminLayout';
+import ScrollToTop from './components/ui/ScrollToTop';
 
 // Storefront Pages
 import Home from './pages/storefront/Home';
@@ -19,6 +20,7 @@ import Wholesale from './pages/storefront/Wholesale';
 export default function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         {/* Storefront Routes */}
         <Route path="/" element={<StoreLayout />}>
