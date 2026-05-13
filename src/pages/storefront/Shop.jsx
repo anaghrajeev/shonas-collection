@@ -43,7 +43,7 @@ export default function Shop() {
             </div>
             <div className="p-4 bg-surface text-center">
               <h3 className="font-headline-md text-[18px] text-on-surface mb-1 group-hover:text-primary transition-colors">{p.name}</h3>
-              <p className="font-body-md text-secondary">{p.price}</p>
+              <p className="font-body-md text-secondary line-clamp-2" title={p.description}>{p.description}</p>
             </div>
           </a>
         ))}

@@ -4,7 +4,7 @@ import { getProducts, addProduct, toggleStockStatus, deleteProduct } from '../..
 export default function Products() {
   const [products, setProducts] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
-  const [newProduct, setNewProduct] = useState({ name: '', category: '', price: '', imagesInput: '' });
+  const [newProduct, setNewProduct] = useState({ name: '', category: '', description: '', imagesInput: '' });
 
   useEffect(() => {
     setProducts(getProducts());
@@ -29,7 +29,7 @@ export default function Products() {
     const updatedProducts = addProduct(productToSave);
     setProducts(updatedProducts);
     setIsAdding(false);
-    setNewProduct({ name: '', category: '', price: '', imagesInput: '' });
+    setNewProduct({ name: '', category: '', description: '', imagesInput: '' });
   };
 
   const handleToggleStock = (id) => {
@@ -98,14 +98,13 @@ export default function Products() {
                 <option value="Home Decor">Home Decor</option>
               </select>
             </div>
-            <div>
-              <label className="block font-label-md text-on-surface mb-2">Price (e.g. ₹1,200)</label>
-              <input 
-                type="text" 
+            <div className="md:col-span-2">
+              <label className="block font-label-md text-on-surface mb-2">Product Description</label>
+              <textarea 
                 required 
-                value={newProduct.price}
-                onChange={e => setNewProduct({...newProduct, price: e.target.value})}
-                className="w-full px-4 py-2 border border-outline-variant/50 rounded-lg"
+                value={newProduct.description}
+                onChange={e => setNewProduct({...newProduct, description: e.target.value})}
+                className="w-full px-4 py-2 border border-outline-variant/50 rounded-lg h-24 resize-y bg-surface text-on-surface"
               />
             </div>
             <div className="md:col-span-2 mt-4">
@@ -134,7 +133,7 @@ export default function Products() {
                 <th className="p-4 border-b border-outline-variant/30 w-16"></th>
                 <th className="p-4 border-b border-outline-variant/30">Name</th>
                 <th className="p-4 border-b border-outline-variant/30">Category</th>
-                <th className="p-4 border-b border-outline-variant/30">Price</th>
+                <th className="p-4 border-b border-outline-variant/30">Description</th>
                 <th className="p-4 border-b border-outline-variant/30">Stock Status</th>
                 <th className="p-4 border-b border-outline-variant/30 text-right">Actions</th>
               </tr>
@@ -147,7 +146,7 @@ export default function Products() {
                   </td>
                   <td className="p-4 font-body-md text-on-surface">{p.name}</td>
                   <td className="p-4 text-on-surface-variant">{p.category}</td>
-                  <td className="p-4 text-on-surface">{p.price}</td>
+                  <td className="p-4 text-on-surface">{p.description}</td>
                   <td className="p-4">
                     <button 
                       onClick={() => handleToggleStock(p.id)}
