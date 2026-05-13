@@ -4,7 +4,7 @@ import { getProducts, addProduct, toggleStockStatus, deleteProduct } from '../..
 export default function Products() {
   const [products, setProducts] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
-  const [newProduct, setNewProduct] = useState({ name: '', category: '', price: '', img: '' });
+  const [newProduct, setNewProduct] = useState({ name: '', category: '', price: '', imagesInput: '' });
 
   useEffect(() => {
     setProducts(getProducts());
@@ -12,11 +12,24 @@ export default function Products() {
 
   const handleAddProduct = (e) => {
     e.preventDefault();
-    if (!newProduct.name || !newProduct.img) return;
-    const updatedProducts = addProduct(newProduct);
+    if (!newProduct.name || !newProduct.imagesInput) return;
+    
+    // Split the comma-separated string into an array of URLs, clean up whitespace
+    const imagesArray = newProduct.imagesInput.split(',').map(url => url.trim()).filter(url => url !== '');
+    
+    const productToSave = {
+      ...newProduct,
+      img: imagesArray[0], // fallback for backwards compatibility
+      images: imagesArray
+    };
+    
+    // Remove the temporary input string from the object before saving
+    delete productToSave.imagesInput;
+    
+    const updatedProducts = addProduct(productToSave);
     setProducts(updatedProducts);
     setIsAdding(false);
-    setNewProduct({ name: '', category: '', price: '', img: '' });
+    setNewProduct({ name: '', category: '', price: '', imagesInput: '' });
   };
 
   const handleToggleStock = (id) => {
@@ -48,14 +61,14 @@ export default function Products() {
         <div className="bg-surface rounded-xl ambient-shadow p-6 border border-outline-variant/30">
           <h3 className="font-headline-md text-primary mb-4">Add New Product</h3>
           <form onSubmit={handleAddProduct} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block font-label-md text-on-surface mb-2">Image URL</label>
-              <input 
-                type="url" 
+            <div className="md:col-span-2">
+              <label className="block font-label-md text-on-surface mb-2">Image URLs (comma separated)</label>
+              <textarea 
                 required 
-                value={newProduct.img}
-                onChange={e => setNewProduct({...newProduct, img: e.target.value})}
-                className="w-full px-4 py-2 border border-outline-variant/50 rounded-lg"
+                value={newProduct.imagesInput}
+                onChange={e => setNewProduct({...newProduct, imagesInput: e.target.value})}
+                placeholder="https://image1.jpg, https://image2.jpg"
+                className="w-full px-4 py-2 border border-outline-variant/50 rounded-lg h-24 resize-y"
               />
             </div>
             <div>
@@ -130,7 +143,7 @@ export default function Products() {
               {products.map((p) => (
                 <tr key={p.id} className={`hover:bg-surface-container-low transition-colors border-b border-outline-variant/10 last:border-0 ${!p.inStock ? 'opacity-50' : ''}`}>
                   <td className="p-4">
-                    <img src={p.img} alt={p.name} className="w-12 h-12 object-cover rounded-md" />
+                    <img src={p.images && p.images.length > 0 ? p.images[0] : p.img} alt={p.name} className="w-12 h-12 object-cover rounded-md" />
                   </td>
                   <td className="p-4 font-body-md text-on-surface">{p.name}</td>
                   <td className="p-4 text-on-surface-variant">{p.category}</td>
