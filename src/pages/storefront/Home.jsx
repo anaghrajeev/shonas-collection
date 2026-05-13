@@ -33,42 +33,48 @@ export default function Home() {
 
   return (
     <>
-      <section className="relative w-full min-h-[90vh] flex items-center justify-center bg-surface overflow-hidden">
+      <section className="relative w-full min-h-[95vh] flex items-center justify-center overflow-hidden">
+        {/* Background Image Layer */}
         <div className="absolute inset-0 z-0">
-          <div className="w-full h-full hero-parallax opacity-60 scale-105" style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuCM2qvDlwrv61QphnTu1n0CIDunjZ8pFFFR8LjU7YKbSJxNtdudByhZax-RLGtPLy4hscO5aTbNO1Fp4S8oruj9q2qmlLWSDe-7dYK8lsIGnHJON91nr9DaZ1ifw-o4eQIwF1527OV33gFA0b7yDOeVYz__iwoxcSnPsVWwRhFzLb_MMDyokos4xwgiPvFedumjSLC-EQcXY6EU6hIifgiVucwpODIrz6KcN9IZ6HAjUG_Wx5ZK6qurCxKFX9zBF5wSZroeYBKimPkY')" }}></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/80 to-surface/30"></div>
-          <div className="absolute inset-0 bg-gradient-to-b from-surface/50 to-transparent"></div>
+          <div className="w-full h-full bg-cover bg-center animate-image-pan opacity-90 scale-105 transition-transform duration-[20s] hover:scale-110" style={{ backgroundImage: "url('/indian_heritage_hero_bg.png')" }}></div>
+          {/* Overlays for premium contrast */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-surface"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/20 to-transparent"></div>
         </div>
         
-        <div className="relative z-10 max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop text-center flex flex-col items-center">
-          
-          <div className="mb-6 animate-fade-in-up flex items-center justify-center gap-4">
-            <div className="h-px w-12 bg-primary/40"></div>
-            <span className="font-label-md text-label-md text-primary tracking-[0.3em] uppercase">Shona's Collection</span>
-            <div className="h-px w-12 bg-primary/40"></div>
-          </div>
+        {/* Content */}
+        <div className="relative z-10 w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+          <div className="max-w-3xl flex flex-col items-start text-left bg-black/20 backdrop-blur-md p-8 md:p-14 rounded-3xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]">
+            
+            <div className="mb-6 animate-fade-in-up flex items-center gap-4">
+              <div className="h-[2px] w-12 bg-primary"></div>
+              <span className="font-label-md text-label-md text-white tracking-[0.3em] uppercase drop-shadow-md">Shona's Collection</span>
+            </div>
 
-          <h1 className="font-display-lg text-[42px] md:text-[64px] text-on-surface max-w-5xl tracking-tight leading-[1.1] animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
-            <span className="block text-primary italic mb-2 font-light">Crafting</span>
-            Modern Heritage.
-          </h1>
-          
-          <p className="mt-8 font-body-lg text-body-lg text-on-surface-variant max-w-2xl animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-            From authentic readymade Madisars to exquisite Navratri decor. Custom-crafted in Kerala, delivered to your doorstep worldwide.
-          </p>
+            <h1 className="font-display-lg text-[48px] md:text-[76px] text-white tracking-tight leading-[1.05] animate-fade-in-up drop-shadow-lg" style={{ animationDelay: '0.1s' }}>
+              <span className="block text-white/80 italic mb-3 font-light text-[36px] md:text-[48px]">Crafting</span>
+              Modern Heritage.
+            </h1>
+            
+            <p className="mt-8 font-body-lg text-body-lg text-white/90 max-w-xl animate-fade-in-up leading-relaxed" style={{ animationDelay: '0.2s' }}>
+              From authentic readymade Madisars to exquisite Navratri decor. Custom-crafted in Kerala, delivered to your doorstep worldwide.
+            </p>
 
-          <div className="mt-12 flex flex-col sm:flex-row gap-6 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
-            <a className="bg-primary text-white font-label-lg text-label-lg px-10 py-4 rounded-none uppercase tracking-[0.2em] hover:bg-primary-container transition-all duration-500 border border-primary hover:shadow-[0_0_30px_rgba(77,2,26,0.2)]" href="#collections">
-              Explore Collections
-            </a>
-            <a className="bg-transparent text-primary font-label-lg text-label-lg px-10 py-4 rounded-none uppercase tracking-[0.2em] hover:bg-primary/5 transition-all duration-500 border border-primary/30" href="#story">
-              Our Story
-            </a>
+            <div className="mt-12 flex flex-col sm:flex-row gap-6 animate-fade-in-up w-full sm:w-auto" style={{ animationDelay: '0.3s' }}>
+              <a className="bg-primary text-white font-label-lg text-label-lg px-10 py-4 rounded-none uppercase tracking-[0.2em] hover:bg-primary-container transition-all duration-500 border border-primary hover:shadow-[0_0_30px_rgba(77,2,26,0.6)] text-center" href="#collections">
+                Explore Collections
+              </a>
+              <a className="bg-white/5 backdrop-blur-sm text-white font-label-lg text-label-lg px-10 py-4 rounded-none uppercase tracking-[0.2em] hover:bg-white/20 transition-all duration-500 border border-white/20 text-center" href="#story">
+                Our Story
+              </a>
+            </div>
           </div>
-
-          <div className="absolute bottom-[-60px] left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 animate-pulse-slow">
-            <div className="w-[1px] h-16 bg-gradient-to-b from-primary/60 to-transparent"></div>
-          </div>
+        </div>
+        
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 animate-pulse">
+          <span className="text-white/60 text-xs tracking-[0.3em] uppercase">Scroll</span>
+          <div className="w-[1px] h-16 bg-gradient-to-b from-white/60 to-transparent"></div>
         </div>
       </section>
 
