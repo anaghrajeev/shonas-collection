@@ -70,13 +70,20 @@ export default function Products() {
             </div>
             <div>
               <label className="block font-label-md text-on-surface mb-2">Category</label>
-              <input 
-                type="text" 
+              <select 
                 required 
                 value={newProduct.category}
                 onChange={e => setNewProduct({...newProduct, category: e.target.value})}
-                className="w-full px-4 py-2 border border-outline-variant/50 rounded-lg"
-              />
+                className="w-full px-4 py-2 border border-outline-variant/50 rounded-lg bg-surface text-on-surface"
+              >
+                <option value="" disabled>Select a category</option>
+                <option value="Madisars">Madisars</option>
+                <option value="Ladies">Ladies</option>
+                <option value="Mens">Mens</option>
+                <option value="Kids">Kids</option>
+                <option value="Jewellery">Jewellery</option>
+                <option value="Home Decor">Home Decor</option>
+              </select>
             </div>
             <div>
               <label className="block font-label-md text-on-surface mb-2">Price (e.g. ₹1,200)</label>
