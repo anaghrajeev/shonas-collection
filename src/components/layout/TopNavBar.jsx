@@ -35,6 +35,7 @@ export default function TopNavBar() {
           <li><Link className={getClassName("/shop?category=madisars")} to="/shop?category=madisars">Madisars</Link></li>
           <li><Link className={getClassName("/shop?category=ladies")} to="/shop?category=ladies">Ladies</Link></li>
           <li><Link className={getClassName("/shop?category=mens")} to="/shop?category=mens">Mens</Link></li>
+          <li><Link className={getClassName("/shop?category=kids")} to="/shop?category=kids">Kids</Link></li>
           <li><Link className={getClassName("/shop?category=jewellery")} to="/shop?category=jewellery">Jewellery</Link></li>
           <li><Link className={getClassName("/shop?category=home-decor")} to="/shop?category=home-decor">Home Decor</Link></li>
         </ul>
@@ -47,6 +48,7 @@ export default function TopNavBar() {
             <li><Link onClick={() => setIsMobileMenuOpen(false)} className={`inline-block ${getClassName("/shop?category=madisars")}`} to="/shop?category=madisars">Madisars</Link></li>
             <li><Link onClick={() => setIsMobileMenuOpen(false)} className={`inline-block ${getClassName("/shop?category=ladies")}`} to="/shop?category=ladies">Ladies</Link></li>
             <li><Link onClick={() => setIsMobileMenuOpen(false)} className={`inline-block ${getClassName("/shop?category=mens")}`} to="/shop?category=mens">Mens</Link></li>
+            <li><Link onClick={() => setIsMobileMenuOpen(false)} className={`inline-block ${getClassName("/shop?category=kids")}`} to="/shop?category=kids">Kids</Link></li>
             <li><Link onClick={() => setIsMobileMenuOpen(false)} className={`inline-block ${getClassName("/shop?category=jewellery")}`} to="/shop?category=jewellery">Jewellery</Link></li>
             <li><Link onClick={() => setIsMobileMenuOpen(false)} className={`inline-block ${getClassName("/shop?category=home-decor")}`} to="/shop?category=home-decor">Home Decor</Link></li>
           </ul>

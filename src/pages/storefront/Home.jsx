@@ -72,18 +72,20 @@ export default function Home() {
         </div>
         
         {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 animate-pulse">
-          <span className="text-white/60 text-xs tracking-[0.3em] uppercase">Scroll</span>
-          <div className="w-[1px] h-16 bg-gradient-to-b from-white/60 to-transparent"></div>
+        <div 
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer opacity-80 hover:opacity-100 transition-opacity" 
+          onClick={() => document.getElementById('collections')?.scrollIntoView({ behavior: 'smooth' })}
+        >
+          <span className="text-white text-xs tracking-[0.3em] uppercase drop-shadow-md">Discover</span>
+          <span className="material-symbols-outlined text-white text-3xl animate-bounce drop-shadow-md">keyboard_double_arrow_down</span>
         </div>
       </section>
 
       <div className="w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16 md:py-24 flex flex-col gap-16 md:gap-32">
         <section id="collections" className="flex flex-col gap-12 pt-8">
           <div className="flex flex-col items-center gap-4 text-center">
-            <span className="material-symbols-outlined text-outline-variant opacity-50" style={{ fontSize: '32px' }}>diamond</span>
             <h2 className="font-headline-lg text-headline-lg text-primary">Explore Our Collections</h2>
-            <div className="w-16 h-px bg-outline-variant"></div>
+            <div className="w-24 h-[2px] bg-primary/40 rounded-full"></div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-gutter auto-rows-[250px] md:auto-rows-[300px]">
             <a className="group relative md:col-span-2 md:row-span-2 rounded-xl overflow-hidden bg-surface ambient-shadow block" href="#">
