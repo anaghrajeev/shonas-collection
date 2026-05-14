@@ -124,7 +124,7 @@ function ProductModal({ product, onClose }) {
               href={waLink(product.name)}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 flex items-center justify-center gap-3 bg-[#25D366] hover:bg-[#1ebe5d] text-white font-label-lg text-label-lg px-6 py-3.5 rounded-xl transition-colors shadow-md"
+              className="flex-1 flex items-center justify-center gap-3 bg-primary hover:bg-primary/90 text-white font-label-lg text-label-lg px-6 py-3.5 rounded-xl transition-colors shadow-md hover:shadow-[0_4px_20px_rgba(77,2,26,0.4)]"
               onClick={e => e.stopPropagation()}
             >
               {/* WhatsApp icon */}
