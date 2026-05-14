@@ -3,8 +3,131 @@ import { getProducts, addProduct, toggleStockStatus, deleteProduct, updateProduc
 
 const CATEGORIES = ['Madisars', 'Ladies', 'Mens', 'Kids', 'Jewellery', 'Home Decor'];
 
-const emptyForm = { name: '', category: '', description: '', imagesInput: '' };
+const emptyForm = { name: '', category: '', description: '', images: [''] };
 
+// ── Image URL input list ──────────────────────────────────────────────────
+function ImageUrlsInput({ images, onChange }) {
+  const updateUrl = (index, value) => {
+    const next = [...images];
+    next[index] = value;
+    onChange(next);
+  };
+
+  const addUrl = () => onChange([...images, '']);
+
+  const removeUrl = (index) => {
+    const next = images.filter((_, i) => i !== index);
+    onChange(next.length ? next : ['']);
+  };
+
+  return (
+    <div className="flex flex-col gap-3">
+      <label className="block font-label-md text-on-surface">
+        Product Images
+        <span className="ml-2 font-body-md text-[11px] text-secondary normal-case tracking-normal">
+          (first image is the cover photo)
+        </span>
+      </label>
+
+      {images.map((url, index) => (
+        <div key={index} className="flex items-center gap-3">
+          {/* Thumbnail preview */}
+          <div className="w-12 h-12 rounded-lg overflow-hidden bg-surface-container-low border border-outline-variant/30 flex-shrink-0">
+            {url ? (
+              <img
+                src={url}
+                alt={`Image ${index + 1}`}
+                className="w-full h-full object-cover"
+                onError={e => { e.target.style.display = 'none'; }}
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center">
+                <span className="material-symbols-outlined text-outline/50 text-[20px]">image</span>
+              </div>
+            )}
+          </div>
+
+          {/* URL input */}
+          <div className="flex-1 relative">
+            <input
+              type="url"
+              value={url}
+              onChange={e => updateUrl(index, e.target.value)}
+              placeholder={index === 0 ? 'https://cover-image-url.jpg' : `https://image-${index + 1}-url.jpg`}
+              className="w-full px-3 py-2 border border-outline-variant/50 rounded-lg bg-surface text-on-surface text-sm pr-8"
+            />
+            {index === 0 && (
+              <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] font-label-md text-primary/50 uppercase tracking-wider pointer-events-none">
+                Cover
+              </span>
+            )}
+          </div>
+
+          {/* Remove button */}
+          <button
+            type="button"
+            onClick={() => removeUrl(index)}
+            disabled={images.length === 1 && index === 0}
+            title="Remove image"
+            className="text-error hover:bg-error/10 p-1.5 rounded-full transition-colors disabled:opacity-30 disabled:cursor-not-allowed flex-shrink-0"
+          >
+            <span className="material-symbols-outlined text-[18px]">delete</span>
+          </button>
+        </div>
+      ))}
+
+      {/* Add image button */}
+      <button
+        type="button"
+        onClick={addUrl}
+        className="flex items-center gap-2 text-primary hover:bg-primary/5 px-3 py-2 rounded-lg border border-dashed border-primary/40 hover:border-primary transition-all font-label-md text-sm self-start"
+      >
+        <span className="material-symbols-outlined text-[18px]">add_photo_alternate</span>
+        Add Another Image
+      </button>
+    </div>
+  );
+}
+
+// ── Shared text fields ────────────────────────────────────────────────────
+function TextFields({ values, onChange }) {
+  return (
+    <>
+      <div>
+        <label className="block font-label-md text-on-surface mb-2">Product Name</label>
+        <input
+          type="text" required
+          value={values.name}
+          onChange={e => onChange({ ...values, name: e.target.value })}
+          className="w-full px-4 py-2 border border-outline-variant/50 rounded-lg bg-surface text-on-surface"
+        />
+      </div>
+      <div>
+        <label className="block font-label-md text-on-surface mb-2">Category</label>
+        <select
+          required
+          value={values.category}
+          onChange={e => onChange({ ...values, category: e.target.value })}
+          className="w-full px-4 py-2 border border-outline-variant/50 rounded-lg bg-surface text-on-surface"
+        >
+          <option value="" disabled>Select a category</option>
+          {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
+        </select>
+      </div>
+      <div className="md:col-span-2">
+        <label className="block font-label-md text-on-surface mb-2">Product Description</label>
+        <textarea
+          required
+          value={values.description}
+          onChange={e => onChange({ ...values, description: e.target.value })}
+          className="w-full px-4 py-2 border border-outline-variant/50 rounded-lg h-24 resize-y bg-surface text-on-surface"
+        />
+      </div>
+    </>
+  );
+}
+
+// ── Main page ─────────────────────────────────────────────────────────────
 export default function Products() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -16,7 +139,7 @@ export default function Products() {
   const [saving, setSaving] = useState(false);
 
   // Edit modal
-  const [editingProduct, setEditingProduct] = useState(null); // full product object
+  const [editingProduct, setEditingProduct] = useState(null);
   const [editForm, setEditForm] = useState(emptyForm);
   const [editSaving, setEditSaving] = useState(false);
 
@@ -34,14 +157,15 @@ export default function Products() {
     }
   }
 
-  // ── Add ──────────────────────────────────────────────
+  // ── Add ────────────────────────────────────────────────
   const handleAddProduct = async (e) => {
     e.preventDefault();
-    if (!newProduct.name || !newProduct.imagesInput) return;
-    const imagesArray = newProduct.imagesInput.split(',').map(u => u.trim()).filter(Boolean);
+    const cleanImages = newProduct.images.map(u => u.trim()).filter(Boolean);
+    if (!newProduct.name || cleanImages.length === 0) return;
+
     try {
       setSaving(true);
-      await addProduct({ ...newProduct, img: imagesArray[0], images: imagesArray });
+      await addProduct({ ...newProduct, images: cleanImages, img: cleanImages[0] });
       await loadProducts();
       setIsAdding(false);
       setNewProduct(emptyForm);
@@ -52,14 +176,14 @@ export default function Products() {
     }
   };
 
-  // ── Edit ─────────────────────────────────────────────
+  // ── Edit ──────────────────────────────────────────────
   function openEdit(product) {
     setEditingProduct(product);
     setEditForm({
       name: product.name,
       category: product.category,
       description: product.description,
-      imagesInput: (product.images || []).join(', '),
+      images: product.images?.length ? product.images : [product.img || ''],
     });
   }
 
@@ -70,15 +194,17 @@ export default function Products() {
 
   const handleEditProduct = async (e) => {
     e.preventDefault();
-    const imagesArray = editForm.imagesInput.split(',').map(u => u.trim()).filter(Boolean);
+    const cleanImages = editForm.images.map(u => u.trim()).filter(Boolean);
+    if (cleanImages.length === 0) return;
+
     try {
       setEditSaving(true);
       await updateProduct(editingProduct.id, {
         name: editForm.name,
         category: editForm.category,
         description: editForm.description,
-        images: imagesArray,
-        img: imagesArray[0] || '',
+        images: cleanImages,
+        img: cleanImages[0],
       });
       await loadProducts();
       closeEdit();
@@ -89,7 +215,7 @@ export default function Products() {
     }
   };
 
-  // ── Stock / Delete ────────────────────────────────────
+  // ── Stock / Delete ─────────────────────────────────────
   const handleToggleStock = async (id) => {
     try { await toggleStockStatus(id); await loadProducts(); }
     catch (err) { alert('Error updating stock: ' + err.message); }
@@ -100,54 +226,6 @@ export default function Products() {
     try { await deleteProduct(id); setProducts(prev => prev.filter(p => p.id !== id)); }
     catch (err) { alert('Error deleting product: ' + err.message); }
   };
-
-  // ── Shared form fields renderer ───────────────────────
-  function FormFields({ values, onChange }) {
-    return (
-      <>
-        <div className="md:col-span-2">
-          <label className="block font-label-md text-on-surface mb-2">Image URLs (comma separated)</label>
-          <textarea
-            required
-            value={values.imagesInput}
-            onChange={e => onChange({ ...values, imagesInput: e.target.value })}
-            placeholder="https://image1.jpg, https://image2.jpg"
-            className="w-full px-4 py-2 border border-outline-variant/50 rounded-lg h-24 resize-y bg-surface text-on-surface"
-          />
-        </div>
-        <div>
-          <label className="block font-label-md text-on-surface mb-2">Product Name</label>
-          <input
-            type="text" required
-            value={values.name}
-            onChange={e => onChange({ ...values, name: e.target.value })}
-            className="w-full px-4 py-2 border border-outline-variant/50 rounded-lg bg-surface text-on-surface"
-          />
-        </div>
-        <div>
-          <label className="block font-label-md text-on-surface mb-2">Category</label>
-          <select
-            required
-            value={values.category}
-            onChange={e => onChange({ ...values, category: e.target.value })}
-            className="w-full px-4 py-2 border border-outline-variant/50 rounded-lg bg-surface text-on-surface"
-          >
-            <option value="" disabled>Select a category</option>
-            {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
-          </select>
-        </div>
-        <div className="md:col-span-2">
-          <label className="block font-label-md text-on-surface mb-2">Product Description</label>
-          <textarea
-            required
-            value={values.description}
-            onChange={e => onChange({ ...values, description: e.target.value })}
-            className="w-full px-4 py-2 border border-outline-variant/50 rounded-lg h-24 resize-y bg-surface text-on-surface"
-          />
-        </div>
-      </>
-    );
-  }
 
   return (
     <div className="flex flex-col gap-8">
@@ -167,12 +245,24 @@ export default function Products() {
       {/* Add form */}
       {isAdding && (
         <div className="bg-surface rounded-xl ambient-shadow p-6 border border-outline-variant/30">
-          <h3 className="font-headline-md text-primary mb-4">Add New Product</h3>
-          <form onSubmit={handleAddProduct} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <FormFields values={newProduct} onChange={setNewProduct} />
-            <div className="md:col-span-2 mt-2">
-              <button type="submit" disabled={saving} className="bg-primary text-white px-6 py-2 rounded-lg font-label-md disabled:opacity-60">
-                {saving ? 'Saving…' : 'Save Product'}
+          <h3 className="font-headline-md text-primary mb-6">Add New Product</h3>
+          <form onSubmit={handleAddProduct} className="flex flex-col gap-6">
+            {/* Image URLs */}
+            <ImageUrlsInput
+              images={newProduct.images}
+              onChange={imgs => setNewProduct({ ...newProduct, images: imgs })}
+            />
+            <div className="h-px bg-outline-variant/20" />
+            {/* Text fields */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <TextFields values={newProduct} onChange={setNewProduct} />
+            </div>
+            <div>
+              <button type="submit" disabled={saving} className="bg-primary text-white px-8 py-2.5 rounded-lg font-label-md disabled:opacity-60 flex items-center gap-2">
+                {saving
+                  ? <><span className="material-symbols-outlined animate-spin text-sm">progress_activity</span>Saving…</>
+                  : <><span className="material-symbols-outlined text-sm">check</span>Save Product</>
+                }
               </button>
             </div>
           </form>
@@ -216,7 +306,14 @@ export default function Products() {
                 {products.map((p) => (
                   <tr key={p.id} className={`hover:bg-surface-container-low transition-colors border-b border-outline-variant/10 last:border-0 ${!p.inStock ? 'opacity-50' : ''}`}>
                     <td className="p-4">
-                      <img src={p.images?.[0] || p.img} alt={p.name} className="w-12 h-12 object-cover rounded-md" />
+                      <div className="relative w-12 h-12">
+                        <img src={p.images?.[0] || p.img} alt={p.name} className="w-12 h-12 object-cover rounded-md" />
+                        {p.images?.length > 1 && (
+                          <span className="absolute -bottom-1 -right-1 bg-primary text-white text-[9px] font-label-md rounded-full w-4 h-4 flex items-center justify-center">
+                            {p.images.length}
+                          </span>
+                        )}
+                      </div>
                     </td>
                     <td className="p-4 font-body-md text-on-surface">{p.name}</td>
                     <td className="p-4 text-on-surface-variant">{p.category}</td>
@@ -232,20 +329,10 @@ export default function Products() {
                       </button>
                     </td>
                     <td className="p-4 text-right whitespace-nowrap">
-                      {/* Edit */}
-                      <button
-                        onClick={() => openEdit(p)}
-                        title="Edit product"
-                        className="text-primary hover:bg-primary/10 p-2 rounded-full transition-colors"
-                      >
+                      <button onClick={() => openEdit(p)} title="Edit product" className="text-primary hover:bg-primary/10 p-2 rounded-full transition-colors">
                         <span className="material-symbols-outlined">edit</span>
                       </button>
-                      {/* Delete */}
-                      <button
-                        onClick={() => handleDelete(p.id)}
-                        title="Delete product"
-                        className="text-error hover:bg-error/10 p-2 rounded-full transition-colors ml-1"
-                      >
+                      <button onClick={() => handleDelete(p.id)} title="Delete product" className="text-error hover:bg-error/10 p-2 rounded-full transition-colors ml-1">
                         <span className="material-symbols-outlined">delete</span>
                       </button>
                     </td>
@@ -284,13 +371,20 @@ export default function Products() {
             <div className="h-px bg-outline-variant/30" />
 
             {/* Edit form */}
-            <form onSubmit={handleEditProduct} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <FormFields values={editForm} onChange={setEditForm} />
-              <div className="md:col-span-2 flex gap-3 mt-2">
+            <form onSubmit={handleEditProduct} className="flex flex-col gap-6">
+              <ImageUrlsInput
+                images={editForm.images}
+                onChange={imgs => setEditForm({ ...editForm, images: imgs })}
+              />
+              <div className="h-px bg-outline-variant/20" />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <TextFields values={editForm} onChange={setEditForm} />
+              </div>
+              <div className="flex gap-3">
                 <button
                   type="submit"
                   disabled={editSaving}
-                  className="bg-primary text-white px-8 py-2 rounded-lg font-label-md disabled:opacity-60 flex items-center gap-2"
+                  className="bg-primary text-white px-8 py-2.5 rounded-lg font-label-md disabled:opacity-60 flex items-center gap-2"
                 >
                   {editSaving
                     ? <><span className="material-symbols-outlined animate-spin text-sm">progress_activity</span>Saving…</>
