@@ -1,7 +1,7 @@
 export default function Dashboard() {
   return (
     <div className="flex flex-col gap-8">
-      <h2 className="font-display-lg text-[32px] text-primary">Overview</h2>
+      <h2 className="font-display-lg text-[24px] md:text-[32px] text-primary">Overview</h2>
       
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

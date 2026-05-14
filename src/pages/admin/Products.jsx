@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getProducts, addProduct, toggleStockStatus, deleteProduct, updateProduct } from '../../utils/productStore';
 
-const CATEGORIES = ['Madisars', 'Ladies', 'Mens', 'Kids', 'Jewellery', 'Home Decor'];
+const CATEGORIES = ['Madisars', 'Ladies', 'Mens', 'Kids', 'Jewellery', 'Home Decor', 'Navratri Specials'];
 
 const emptyForm = { name: '', category: '', description: '', images: [''] };
 
@@ -276,12 +276,13 @@ export default function Products() {
         </div>
       )}
 
-      {/* Table */}
+      {/* Product List */}
       <div className="bg-surface rounded-xl ambient-shadow border border-outline-variant/30 overflow-hidden">
-        <div className="p-4 border-b border-outline-variant/30 flex justify-between items-center bg-surface-container-low">
+        {/* Search bar */}
+        <div className="p-4 border-b border-outline-variant/30 bg-surface-container-low">
           <div className="relative">
             <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
-            <input type="text" placeholder="Search products…" className="pl-10 pr-4 py-2 bg-surface border border-outline-variant/50 rounded-lg text-on-surface w-64" />
+            <input type="text" placeholder="Search products…" className="pl-10 pr-4 py-2 bg-surface border border-outline-variant/50 rounded-lg text-on-surface w-full md:w-72" />
           </div>
         </div>
 
@@ -290,60 +291,107 @@ export default function Products() {
             <span className="material-symbols-outlined animate-spin">progress_activity</span>Loading products…
           </div>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="bg-surface-container-low font-label-md text-secondary uppercase tracking-wider">
-                  <th className="p-4 border-b border-outline-variant/30 w-16"></th>
-                  <th className="p-4 border-b border-outline-variant/30">Name</th>
-                  <th className="p-4 border-b border-outline-variant/30">Category</th>
-                  <th className="p-4 border-b border-outline-variant/30">Description</th>
-                  <th className="p-4 border-b border-outline-variant/30">Stock</th>
-                  <th className="p-4 border-b border-outline-variant/30 text-right">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {products.map((p) => (
-                  <tr key={p.id} className={`hover:bg-surface-container-low transition-colors border-b border-outline-variant/10 last:border-0 ${!p.inStock ? 'opacity-50' : ''}`}>
-                    <td className="p-4">
-                      <div className="relative w-12 h-12">
-                        <img src={p.images?.[0] || p.img} alt={p.name} className="w-12 h-12 object-cover rounded-md" />
-                        {p.images?.length > 1 && (
-                          <span className="absolute -bottom-1 -right-1 bg-primary text-white text-[9px] font-label-md rounded-full w-4 h-4 flex items-center justify-center">
-                            {p.images.length}
-                          </span>
-                        )}
-                      </div>
-                    </td>
-                    <td className="p-4 font-body-md text-on-surface">{p.name}</td>
-                    <td className="p-4 text-on-surface-variant">{p.category}</td>
-                    <td className="p-4 text-on-surface max-w-xs truncate">{p.description}</td>
-                    <td className="p-4">
-                      <button
-                        onClick={() => handleToggleStock(p.id)}
-                        className={`px-3 py-1 rounded-full font-label-md text-[10px] uppercase tracking-wider ${
-                          p.inStock ? 'bg-[#e4e2dd] text-[#1b1c19]' : 'bg-[#ffdad6] text-[#93000a]'
-                        }`}
-                      >
-                        {p.inStock ? 'In Stock' : 'No Stock'}
-                      </button>
-                    </td>
-                    <td className="p-4 text-right whitespace-nowrap">
-                      <button onClick={() => openEdit(p)} title="Edit product" className="text-primary hover:bg-primary/10 p-2 rounded-full transition-colors">
-                        <span className="material-symbols-outlined">edit</span>
-                      </button>
-                      <button onClick={() => handleDelete(p.id)} title="Delete product" className="text-error hover:bg-error/10 p-2 rounded-full transition-colors ml-1">
-                        <span className="material-symbols-outlined">delete</span>
-                      </button>
-                    </td>
+          <>
+            {/* ── Mobile: card grid ── */}
+            <div className="md:hidden flex flex-col divide-y divide-outline-variant/10">
+              {products.map((p) => (
+                <div key={p.id} className={`flex items-start gap-3 p-4 ${!p.inStock ? 'opacity-50' : ''}`}>
+                  {/* Thumbnail */}
+                  <div className="relative w-16 h-16 flex-shrink-0">
+                    <img src={p.images?.[0] || p.img} alt={p.name} className="w-16 h-16 object-cover rounded-lg" />
+                    {p.images?.length > 1 && (
+                      <span className="absolute -bottom-1 -right-1 bg-primary text-white text-[9px] font-label-md rounded-full w-4 h-4 flex items-center justify-center">
+                        {p.images.length}
+                      </span>
+                    )}
+                  </div>
+                  {/* Info */}
+                  <div className="flex-1 min-w-0">
+                    <p className="font-body-md text-on-surface truncate">{p.name}</p>
+                    <p className="font-label-md text-secondary text-xs">{p.category}</p>
+                    <p className="font-body-md text-on-surface-variant text-xs mt-1 line-clamp-2">{p.description}</p>
+                    {/* Stock toggle */}
+                    <button
+                      onClick={() => handleToggleStock(p.id)}
+                      className={`mt-2 px-3 py-1 rounded-full font-label-md text-[10px] uppercase tracking-wider ${
+                        p.inStock ? 'bg-[#e4e2dd] text-[#1b1c19]' : 'bg-[#ffdad6] text-[#93000a]'
+                      }`}
+                    >
+                      {p.inStock ? 'In Stock' : 'No Stock'}
+                    </button>
+                  </div>
+                  {/* Actions */}
+                  <div className="flex flex-col gap-1 flex-shrink-0">
+                    <button onClick={() => openEdit(p)} title="Edit" className="text-primary hover:bg-primary/10 p-2 rounded-full transition-colors">
+                      <span className="material-symbols-outlined text-[20px]">edit</span>
+                    </button>
+                    <button onClick={() => handleDelete(p.id)} title="Delete" className="text-error hover:bg-error/10 p-2 rounded-full transition-colors">
+                      <span className="material-symbols-outlined text-[20px]">delete</span>
+                    </button>
+                  </div>
+                </div>
+              ))}
+              {products.length === 0 && (
+                <p className="p-8 text-center text-secondary font-body-md">No products yet. Add your first product above.</p>
+              )}
+            </div>
+
+            {/* ── Desktop: table ── */}
+            <div className="hidden md:block overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="bg-surface-container-low font-label-md text-secondary uppercase tracking-wider">
+                    <th className="p-4 border-b border-outline-variant/30 w-16"></th>
+                    <th className="p-4 border-b border-outline-variant/30">Name</th>
+                    <th className="p-4 border-b border-outline-variant/30">Category</th>
+                    <th className="p-4 border-b border-outline-variant/30">Description</th>
+                    <th className="p-4 border-b border-outline-variant/30">Stock</th>
+                    <th className="p-4 border-b border-outline-variant/30 text-right">Actions</th>
                   </tr>
-                ))}
-                {products.length === 0 && (
-                  <tr><td colSpan={6} className="p-8 text-center text-secondary font-body-md">No products yet. Add your first product above.</td></tr>
-                )}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody>
+                  {products.map((p) => (
+                    <tr key={p.id} className={`hover:bg-surface-container-low transition-colors border-b border-outline-variant/10 last:border-0 ${!p.inStock ? 'opacity-50' : ''}`}>
+                      <td className="p-4">
+                        <div className="relative w-12 h-12">
+                          <img src={p.images?.[0] || p.img} alt={p.name} className="w-12 h-12 object-cover rounded-md" />
+                          {p.images?.length > 1 && (
+                            <span className="absolute -bottom-1 -right-1 bg-primary text-white text-[9px] font-label-md rounded-full w-4 h-4 flex items-center justify-center">
+                              {p.images.length}
+                            </span>
+                          )}
+                        </div>
+                      </td>
+                      <td className="p-4 font-body-md text-on-surface">{p.name}</td>
+                      <td className="p-4 text-on-surface-variant">{p.category}</td>
+                      <td className="p-4 text-on-surface max-w-xs truncate">{p.description}</td>
+                      <td className="p-4">
+                        <button
+                          onClick={() => handleToggleStock(p.id)}
+                          className={`px-3 py-1 rounded-full font-label-md text-[10px] uppercase tracking-wider ${
+                            p.inStock ? 'bg-[#e4e2dd] text-[#1b1c19]' : 'bg-[#ffdad6] text-[#93000a]'
+                          }`}
+                        >
+                          {p.inStock ? 'In Stock' : 'No Stock'}
+                        </button>
+                      </td>
+                      <td className="p-4 text-right whitespace-nowrap">
+                        <button onClick={() => openEdit(p)} title="Edit product" className="text-primary hover:bg-primary/10 p-2 rounded-full transition-colors">
+                          <span className="material-symbols-outlined">edit</span>
+                        </button>
+                        <button onClick={() => handleDelete(p.id)} title="Delete product" className="text-error hover:bg-error/10 p-2 rounded-full transition-colors ml-1">
+                          <span className="material-symbols-outlined">delete</span>
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                  {products.length === 0 && (
+                    <tr><td colSpan={6} className="p-8 text-center text-secondary font-body-md">No products yet. Add your first product above.</td></tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </>
         )}
       </div>
 
@@ -351,7 +399,7 @@ export default function Products() {
       {editingProduct && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm" onClick={closeEdit}>
           <div
-            className="bg-surface rounded-2xl ambient-shadow w-full max-w-2xl max-h-[90vh] overflow-y-auto p-8 flex flex-col gap-6"
+            className="bg-surface rounded-2xl ambient-shadow w-full max-w-2xl max-h-[90vh] overflow-y-auto p-4 md:p-8 flex flex-col gap-6"
             onClick={e => e.stopPropagation()}
           >
             {/* Modal header */}

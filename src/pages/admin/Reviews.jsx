@@ -134,10 +134,10 @@ export default function Reviews() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {reviews.map((r) => (
-            <div key={r.id} className="bg-surface p-6 rounded-xl ambient-shadow border border-outline-variant/30 flex flex-col gap-4 relative group h-[320px]">
+            <div key={r.id} className="bg-surface p-5 rounded-xl ambient-shadow border border-outline-variant/30 flex flex-col gap-4 relative group">
               <button
                 onClick={() => handleDelete(r.id)}
-                className="absolute top-4 right-4 text-error hover:bg-error/10 p-2 rounded-full transition-colors opacity-0 group-hover:opacity-100 z-10"
+                className="absolute top-4 right-4 text-error hover:bg-error/10 p-2 rounded-full transition-colors z-10"
               >
                 <span className="material-symbols-outlined text-sm">delete</span>
               </button>

@@ -90,6 +90,7 @@ export default {
       animation: {
         'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
         'pulse-slow': 'pulseSlow 2s ease-in-out infinite',
+        'slide-in-left': 'slideInLeft 0.25s ease-out forwards',
       },
       keyframes: {
         fadeInUp: {
@@ -99,7 +100,11 @@ export default {
         pulseSlow: {
           '0%, 100%': { transform: 'translateY(0)', opacity: '0.6' },
           '50%': { transform: 'translateY(10px)', opacity: '1' },
-        }
+        },
+        slideInLeft: {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(0)' },
+        },
       }
     },
   },
