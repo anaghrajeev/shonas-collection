@@ -9,8 +9,9 @@ export default function Shop() {
 
   useEffect(() => {
     // Only show items that are in stock
-    const allProducts = getProducts();
-    setProducts(allProducts.filter(p => p.inStock !== false));
+    getProducts()
+      .then(allProducts => setProducts(allProducts.filter(p => p.inStock !== false)))
+      .catch(console.error);
   }, []);
 
   const filteredProducts = categoryFilter ? products.filter(p => p.category.toLowerCase() === categoryFilter.toLowerCase()) : products;

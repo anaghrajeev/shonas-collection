@@ -1,35 +1,44 @@
-const REVIEWS_KEY = 'shonas_reviews';
+// Utility for managing review data via Supabase
+import { supabase } from '../lib/supabase';
 
-const defaultReviews = [
-  { id: 1, rating: 5, text: "Exceptional quality and the madisar was tailored perfectly to my measurements. Arrived in the UK much faster than expected.", name: "Nandini Ganesh", loc: "UK" },
-  { id: 2, rating: 5, text: "The Navratri decor items were exquisite. Ms. Jayasree personally ensured everything was packed securely for shipping to California.", name: "Sunitha Rao", loc: "California" },
-  { id: 3, rating: 5, text: "A truly personalized shopping experience. The return gifts for our function were deeply appreciated by all guests.", name: "Srividya Srinivasan", loc: "Bangalore" },
-];
-
-export function getReviews() {
-  const stored = localStorage.getItem(REVIEWS_KEY);
-  if (!stored) {
-    localStorage.setItem(REVIEWS_KEY, JSON.stringify(defaultReviews));
-    return defaultReviews;
-  }
-  return JSON.parse(stored);
+function mapReview(row) {
+  return {
+    id: row.id,
+    rating: row.rating,
+    text: row.text,
+    name: row.name,
+    loc: row.loc,
+    created_at: row.created_at,
+  };
 }
 
-export function saveReviews(reviews) {
-  localStorage.setItem(REVIEWS_KEY, JSON.stringify(reviews));
+export async function getReviews() {
+  const { data, error } = await supabase
+    .from('reviews')
+    .select('*')
+    .order('created_at', { ascending: true });
+  if (error) throw error;
+  return data.map(mapReview);
 }
 
-export function addReview(review) {
-  const reviews = getReviews();
-  const newReview = { ...review, id: Date.now() };
-  reviews.push(newReview);
-  saveReviews(reviews);
-  return reviews;
+export async function addReview(review) {
+  const { data, error } = await supabase
+    .from('reviews')
+    .insert([{
+      rating: review.rating,
+      text: review.text,
+      name: review.name,
+      loc: review.loc,
+    }])
+    .select();
+  if (error) throw error;
+  return data.map(mapReview);
 }
 
-export function deleteReview(reviewId) {
-  const reviews = getReviews();
-  const updatedReviews = reviews.filter(r => r.id !== reviewId);
-  saveReviews(updatedReviews);
-  return updatedReviews;
+export async function deleteReview(reviewId) {
+  const { error } = await supabase
+    .from('reviews')
+    .delete()
+    .eq('id', reviewId);
+  if (error) throw error;
 }

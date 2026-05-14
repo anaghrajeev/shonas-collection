@@ -7,7 +7,7 @@ export default function Home() {
   const [selectedReview, setSelectedReview] = useState(null);
 
   useEffect(() => {
-    setReviews(getReviews());
+    getReviews().then(setReviews).catch(console.error);
   }, []);
 
   useEffect(() => {
@@ -167,7 +167,7 @@ export default function Home() {
                 Founded by Ms. Jayasree Raman Iyer, Shona's Collection celebrates the beauty of Indian craftsmanship and personalized service. After a successful corporate career, Ms. Jayasree created a boutique to connect people worldwide with authentic traditional clothing.
               </p>
               <p>
-                Today, we proudly serve over 500 customers across the globe. We bring the warmth of Indian hospitality and beautiful, custom-crafted ethnic wear right to your doorstep. Every piece is chosen with care to ensure high quality and true cultural style.
+                Since our launch on September 9, 2018, we have proudly served more than 1,000 customers across the globe. We bring the warmth of Indian hospitality and beautiful, custom-crafted ethnic wear right to your doorstep. Every piece is chosen with care to ensure high quality and true cultural style.
               </p>
             </div>
             <div className="mt-4">

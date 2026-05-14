@@ -28,7 +28,10 @@ export default function Footer() {
           </a>
         </div>
       </div>
-      <p className="font-body-md text-body-md text-on-primary-container/60 mt-8">
+      <p className="font-body-md text-body-md text-on-primary-container/60 mt-4">
+        Launched September 9, 2018 · Serving 1,000+ customers worldwide
+      </p>
+      <p className="font-body-md text-body-md text-on-primary-container/60 mt-2">
         © 2024 SHONA'S COLLECTION. CRAFTING MODERN HERITAGE.
       </p>
     </footer>
