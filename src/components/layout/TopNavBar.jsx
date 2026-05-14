@@ -17,7 +17,7 @@ export default function TopNavBar() {
     <nav className="w-full px-margin-mobile md:px-margin-desktop py-4 sticky top-0 backdrop-blur-md border-b-0 shadow-sm bg-surface/90 dark:bg-inverse-surface/90 z-40 transition-all duration-300">
       <div className="flex justify-between items-center w-full">
         <div className="flex items-center gap-4">
-          <img alt="SHONA'S COLLECTION" className="h-10 md:h-12 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTlk-Hr2ofmtOx-fz-Xuu_fORrGdntGwuDcsW-rCMsO0pt1TQOGL93EBhW9FqJAe6pSZ-IRudvNRUUd2e3AKLp3vom5D6tP0nT0K7znm-37SSS49kLj0zjwsGSNNlZi3IEg0Kt73D4rrSI19xz3h2zycD_D-9mMLgg3DQVnS8HyLePnqWdRJQSw56_CI5WFrKCv1WE-f7hPPDd-zQzl31ZB0tCzB39usWkZj-OYXcs8cuICeXHt1cEcbTAAfl1HLUJ4jQcKaZZxxO_" />
+          <img alt="Shona's Collection Logo" className="h-10 md:h-12 w-auto object-contain" src="/logo.png" />
           <span className="font-display-lg text-[20px] md:text-headline-lg tracking-widest text-primary dark:text-primary-fixed-dim">SHONA'S COLLECTION</span>
         </div>
         
