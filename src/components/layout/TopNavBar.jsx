@@ -38,6 +38,7 @@ export default function TopNavBar() {
           <li><Link className={getClassName("/shop?category=kids")} to="/shop?category=kids">Kids</Link></li>
           <li><Link className={getClassName("/shop?category=jewellery")} to="/shop?category=jewellery">Jewellery</Link></li>
           <li><Link className={getClassName("/shop?category=home-decor")} to="/shop?category=home-decor">Home Decor</Link></li>
+          <li><Link className={`${getClassName("/shop?category=navratri-specials")} flex items-center gap-1`} to="/shop?category=navratri-specials"><span>✨</span>Navratri Specials</Link></li>
         </ul>
       </div>
 
@@ -51,6 +52,7 @@ export default function TopNavBar() {
             <li><Link onClick={() => setIsMobileMenuOpen(false)} className={`inline-block ${getClassName("/shop?category=kids")}`} to="/shop?category=kids">Kids</Link></li>
             <li><Link onClick={() => setIsMobileMenuOpen(false)} className={`inline-block ${getClassName("/shop?category=jewellery")}`} to="/shop?category=jewellery">Jewellery</Link></li>
             <li><Link onClick={() => setIsMobileMenuOpen(false)} className={`inline-block ${getClassName("/shop?category=home-decor")}`} to="/shop?category=home-decor">Home Decor</Link></li>
+            <li><Link onClick={() => setIsMobileMenuOpen(false)} className={`inline-flex items-center gap-1 ${getClassName("/shop?category=navratri-specials")}`} to="/shop?category=navratri-specials"><span>✨</span>Navratri Specials</Link></li>
           </ul>
         </div>
       )}
