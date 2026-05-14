@@ -66,3 +66,20 @@ export async function deleteProduct(productId) {
     .eq('id', productId);
   if (error) throw error;
 }
+
+export async function updateProduct(productId, updates) {
+  const imagesArray = updates.images || (updates.img ? [updates.img] : []);
+  const { data, error } = await supabase
+    .from('products')
+    .update({
+      name: updates.name,
+      category: updates.category,
+      description: updates.description,
+      img: imagesArray[0] || '',
+      images: imagesArray,
+    })
+    .eq('id', productId)
+    .select();
+  if (error) throw error;
+  return data.map(mapProduct);
+}
