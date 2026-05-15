@@ -220,8 +220,10 @@ export default function Shop() {
       .finally(() => setLoading(false));
   }, []);
 
-  const filteredProducts = categoryFilter
-    ? products.filter(p => p.category.toLowerCase() === categoryFilter.toLowerCase())
+  // Normalize URL param: "navratri-specials" → "navratri specials" to match DB values
+  const normalizedFilter = categoryFilter?.toLowerCase().replace(/-/g, ' ');
+  const filteredProducts = normalizedFilter
+    ? products.filter(p => p.category.toLowerCase() === normalizedFilter)
     : products;
 
   return (
