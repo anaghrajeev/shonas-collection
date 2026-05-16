@@ -164,14 +164,14 @@ export default function Home() {
             <div className="w-12 h-1 bg-primary-container"></div>
             <div className="font-body-lg text-body-lg text-on-surface-variant space-y-4">
               <p>
-                Founded by Ms. Jayasree Raman Iyer, Shona's Collection celebrates the beauty of Indian craftsmanship and personalized service. After a successful corporate career, Ms. Jayasree created an online store to connect people worldwide with authentic traditional clothing.
+                Founded by Ms. Jayasree Raman Iyer, Shona's Collection celebrates the beauty of Indian craftsmanship and personalized service. After a successful corporate career, Ms. Jayasree created an online store to connect people worldwide with authentic traditional products and heritage collections.
               </p>
               <p>
-                Since our launch on September 9, 2018, we have proudly served more than 1,000 customers across the globe. We bring the warmth of Indian hospitality and beautiful, custom-crafted ethnic wear right to your doorstep. Every piece is chosen with care to ensure high quality and true cultural style.
+                Since our launch on September 9, 2018, we have proudly served more than 1,000 customers across the globe. We bring the warmth of Indian hospitality and beautiful, custom-crafted products right to your doorstep. Every item—from our specialized Madisars to our curated jewellery and home decor—is chosen with care to ensure high quality and true cultural style.
               </p>
             </div>
             <div className="mt-4">
-              <span className="font-headline-md text-headline-md text-primary italic">"Tradition is not just what we wear; it's how we connect."</span>
+              <span className="font-headline-md text-headline-md text-primary italic">"Heritage is not just what we carry; it's how we bring tradition into our lives."</span>
               <p className="font-label-md text-label-md text-secondary mt-2 uppercase tracking-wide">— Ms. Jayasree Raman Iyer, Founder</p>
             </div>
           </div>
