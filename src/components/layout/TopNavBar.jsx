@@ -16,10 +16,13 @@ export default function TopNavBar() {
   return (
     <nav className="w-full px-margin-mobile md:px-margin-desktop py-4 sticky top-0 backdrop-blur-md border-b-0 shadow-sm bg-surface/90 dark:bg-inverse-surface/90 z-40 transition-all duration-300">
       <div className="flex justify-between items-center w-full">
-        <div className="flex items-center gap-4">
-          <img alt="Shona's Collection Logo" className="h-10 md:h-12 w-auto object-contain" src="/logo.png" />
-          <span className="font-display-lg text-[20px] md:text-headline-lg tracking-widest text-primary dark:text-primary-fixed-dim">SHONA'S COLLECTION</span>
-        </div>
+        <Link to="/" className="flex flex-col group">
+          <div className="flex items-center gap-3 md:gap-4">
+            <img alt="Shona's Collection Logo" className="h-10 md:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105" src="/logo.png" />
+            <span className="font-display-lg text-[18px] md:text-headline-lg tracking-widest text-primary dark:text-primary-fixed-dim">SHONA'S COLLECTION</span>
+          </div>
+          <span className="text-[9px] md:text-[11px] font-label-md text-secondary tracking-[0.15em] md:tracking-[0.25em] uppercase mt-0.5 opacity-80">Your One-Stop Destination for Timeless Tradition</span>
+        </Link>
         
         <button 
           className="md:hidden text-primary"
