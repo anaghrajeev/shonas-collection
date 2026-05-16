@@ -29,7 +29,10 @@ export default function AdminLayout() {
     <aside className="w-64 bg-surface border-r border-outline-variant/30 flex flex-col h-full">
       {/* Brand */}
       <div className="p-5 border-b border-outline-variant/30 flex items-center justify-between">
-        <h2 className="font-display-lg text-[20px] text-primary tracking-wide">SHONA'S ADMIN</h2>
+        <div className="flex items-center gap-3">
+          <img src="/logo.png" alt="Logo" className="h-8 w-8 object-contain" />
+          <h2 className="font-display-lg text-[18px] text-primary tracking-wide">SHONA'S ADMIN</h2>
+        </div>
         {/* Close button — only visible on mobile */}
         <button
           className="md:hidden text-on-surface-variant hover:text-primary p-1 rounded-lg"

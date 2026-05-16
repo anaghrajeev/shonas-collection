@@ -21,6 +21,7 @@ export default function Login() {
     <div className="min-h-screen bg-surface-container-low flex items-center justify-center p-4">
       <div className="bg-surface ambient-shadow rounded-2xl p-8 w-full max-w-md">
         <div className="text-center mb-8">
+          <img src="/logo.png" alt="Shona's Collection Logo" className="h-16 w-auto mx-auto mb-4 object-contain" />
           <h1 className="font-display-lg text-primary text-3xl mb-2">SHONA'S ADMIN</h1>
           <p className="font-body-md text-on-surface-variant">Sign in to manage your store</p>
         </div>
