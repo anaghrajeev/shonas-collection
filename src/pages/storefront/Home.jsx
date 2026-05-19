@@ -156,7 +156,7 @@ export default function Home() {
 
         <section id="story" className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center pt-8">
           <div className="relative rounded-2xl overflow-hidden ambient-shadow h-[400px] md:h-[600px]">
-            <img className="w-full h-full object-cover object-top" alt="Founder" src="/founder.jpg" />
+            <img className="w-full h-full object-cover object-top" alt="Founder" src="/founder.png" />
           </div>
           <div className="flex flex-col gap-6">
             <span className="font-label-lg text-label-lg text-outline uppercase tracking-widest">Our Story</span>
