@@ -25,7 +25,12 @@ export default function Shipping() {
               </p>
               <ul className="list-disc pl-6 space-y-2">
                 <li>If the items received are damaged.</li>
-                <li>If there is a change of colour from what was ordered.</li>
+                <li>
+                  If there is a change of colour from what was ordered.
+                  <span className="block text-sm text-on-surface-variant mt-1 font-normal">
+                    * Please note that there will be a 10% color difference from what is shown digitally. That is because of the original color and the color we see in the phone.
+                  </span>
+                </li>
                 <li>If you receive an incorrect item.</li>
               </ul>
               <div className="bg-error-container/10 border-l-4 border-error p-4 mt-6 rounded-r-md">
