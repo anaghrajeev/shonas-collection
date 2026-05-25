@@ -23,8 +23,13 @@ export default function Wholesale() {
             <p>
               To place a wholesale order or for further inquiries, please contact us at:
             </p>
-            <p className="mt-4 font-bold text-primary">
-              contact@shonascollection.com
+            <p className="mt-4">
+              <a 
+                href="mailto:info@shonascollection.in" 
+                className="font-bold text-primary hover:text-primary/80 transition-colors duration-200"
+              >
+                info@shonascollection.in
+              </a>
             </p>
           </div>
         </div>
