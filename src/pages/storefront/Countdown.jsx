@@ -80,10 +80,6 @@ export default function Countdown() {
             ))}
           </div>
 
-          {/* Hidden link for you to easily access the site while working on it */}
-          <Link to="/home" className="mt-12 text-white/30 hover:text-white/60 font-label-md tracking-widest transition-colors text-xs uppercase animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
-            Enter Site
-          </Link>
         </div>
       </div>
     </div>
