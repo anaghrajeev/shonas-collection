@@ -6,6 +6,7 @@ import AdminLayout from './components/layout/AdminLayout';
 import ScrollToTop from './components/ui/ScrollToTop';
 
 // Storefront Pages
+import Countdown from './pages/storefront/Countdown';
 import Home from './pages/storefront/Home';
 import Shop from './pages/storefront/Shop';
 
@@ -22,12 +23,15 @@ export default function App() {
     <Router>
       <ScrollToTop />
       <Routes>
+        {/* Countdown Landing Page */}
+        <Route path="/" element={<Countdown />} />
+
         {/* Storefront Routes */}
-        <Route path="/" element={<StoreLayout />}>
-          <Route index element={<Home />} />
-          <Route path="shop" element={<Shop />} />
-          <Route path="shipping" element={<Shipping />} />
-          <Route path="wholesale" element={<Wholesale />} />
+        <Route element={<StoreLayout />}>
+          <Route path="/home" element={<Home />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/shipping" element={<Shipping />} />
+          <Route path="/wholesale" element={<Wholesale />} />
         </Route>
 
         {/* Admin Login */}
