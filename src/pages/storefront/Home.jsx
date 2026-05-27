@@ -47,8 +47,8 @@ export default function Home() {
           <div className="max-w-3xl flex flex-col items-start text-left bg-black/20 backdrop-blur-md p-8 md:p-14 rounded-3xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]">
             
             <div className="mb-6 animate-fade-in-up flex items-center gap-4">
-              <div className="h-[2px] w-12 bg-primary"></div>
-              <span className="font-label-md text-label-md text-white tracking-[0.3em] uppercase drop-shadow-md">Shona's Collection</span>
+              <div className="h-[3px] w-16 bg-primary"></div>
+              <span className="font-display-lg text-2xl md:text-4xl text-white tracking-[0.3em] uppercase drop-shadow-lg font-bold">SHONA'S COLLECTION</span>
             </div>
 
             <h1 className="font-display-lg text-[48px] md:text-[76px] text-white tracking-tight leading-[1.05] animate-fade-in-up drop-shadow-lg" style={{ animationDelay: '0.1s' }}>
@@ -57,7 +57,7 @@ export default function Home() {
             </h1>
             
             <p className="mt-8 font-body-lg text-body-lg text-white/90 max-w-xl animate-fade-in-up leading-relaxed" style={{ animationDelay: '0.2s' }}>
-              From authentic readymade Madisars to exquisite Navratri decor. Custom-crafted in Kerala, delivered to your doorstep worldwide.
+              From authentic readymade Madisars to exquisite Navratri decor. Custom-crafted in Keralam, delivered to your doorstep worldwide.
             </p>
 
             <div className="mt-12 flex flex-col sm:flex-row gap-6 animate-fade-in-up w-full sm:w-auto" style={{ animationDelay: '0.3s' }}>

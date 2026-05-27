@@ -24,7 +24,7 @@ export default function Shipping() {
                 Returns are only possible under the following conditions:
               </p>
               <ul className="list-disc pl-6 space-y-2">
-                <li>If the items received are damaged.</li>
+                <li>If items are received in damaged condition.</li>
                 <li>
                   If there is a change of colour from what was ordered.
                   <span className="block text-sm text-on-surface-variant mt-1 font-normal">

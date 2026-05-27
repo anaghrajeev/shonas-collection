@@ -46,9 +46,9 @@ export default function Countdown() {
         <div className="max-w-4xl mx-auto flex flex-col items-center bg-black/30 backdrop-blur-md p-10 md:p-16 rounded-3xl border border-white/20 shadow-[0_8px_32px_0_rgba(0,0,0,0.5)]">
           
           <div className="mb-6 animate-fade-in-up flex items-center gap-4 justify-center">
-            <div className="h-[2px] w-12 bg-primary"></div>
-            <span className="font-label-md text-label-md text-white tracking-[0.3em] uppercase drop-shadow-md">Shona's Collection</span>
-            <div className="h-[2px] w-12 bg-primary"></div>
+            <div className="h-[3px] w-16 bg-primary"></div>
+            <span className="font-display-lg text-2xl md:text-4xl text-white tracking-[0.3em] uppercase drop-shadow-lg font-bold">SHONA'S COLLECTION</span>
+            <div className="h-[3px] w-16 bg-primary"></div>
           </div>
 
           <h1 className="font-display-lg text-[40px] md:text-[64px] text-white tracking-tight leading-[1.1] animate-fade-in-up drop-shadow-lg mb-4" style={{ animationDelay: '0.1s' }}>
