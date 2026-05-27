@@ -50,8 +50,8 @@ export default function Home() {
               <span className="font-display-lg text-[20px] min-[400px]:text-[24px] sm:text-[30px] md:text-[40px] lg:text-[48px] text-white tracking-widest uppercase drop-shadow-lg font-bold whitespace-nowrap overflow-hidden text-ellipsis">SHONA'S COLLECTION</span>
             </div>
 
-            <h1 className="font-display-lg text-[16px] min-[400px]:text-[18px] sm:text-[24px] md:text-[32px] lg:text-[36px] text-white tracking-tight leading-[1.05] animate-fade-in-up drop-shadow-lg" style={{ animationDelay: '0.1s' }}>
-              <span className="block text-white/80 italic mb-2 md:mb-3 font-light text-[14px] min-[400px]:text-[16px] sm:text-[20px] md:text-[24px] lg:text-[28px]">Crafting</span>
+            <h1 className="font-display-lg text-[18px] min-[400px]:text-[21px] sm:text-[25px] md:text-[32px] lg:text-[36px] text-white tracking-tight leading-[1.05] animate-fade-in-up drop-shadow-lg" style={{ animationDelay: '0.1s' }}>
+              <span className="block text-white/80 italic mb-2 md:mb-3 font-light text-[16px] min-[400px]:text-[18px] sm:text-[21px] md:text-[24px] lg:text-[28px]">Crafting</span>
               Modern Heritage.
             </h1>
             
