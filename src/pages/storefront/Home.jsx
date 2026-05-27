@@ -47,11 +47,11 @@ export default function Home() {
           <div className="max-w-3xl flex flex-col items-start text-left bg-black/20 backdrop-blur-md p-8 md:p-14 rounded-3xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]">
             
             <div className="mb-6 animate-fade-in-up flex items-center gap-4">
-              <span className="font-display-lg text-4xl md:text-6xl text-white tracking-[0.3em] uppercase drop-shadow-lg font-bold whitespace-nowrap">SHONA'S COLLECTION</span>
+              <span className="font-display-lg text-[16px] min-[400px]:text-[18px] sm:text-[26px] md:text-[36px] lg:text-[44px] text-white tracking-widest uppercase drop-shadow-lg font-bold whitespace-nowrap overflow-hidden text-ellipsis">SHONA'S COLLECTION</span>
             </div>
 
-            <h1 className="font-display-lg text-[24px] md:text-[40px] text-white tracking-tight leading-[1.05] animate-fade-in-up drop-shadow-lg" style={{ animationDelay: '0.1s' }}>
-              <span className="block text-white/80 italic mb-3 font-light text-[20px] md:text-[32px]">Crafting</span>
+            <h1 className="font-display-lg text-[14px] min-[400px]:text-[16px] sm:text-[22px] md:text-[28px] lg:text-[32px] text-white tracking-tight leading-[1.05] animate-fade-in-up drop-shadow-lg" style={{ animationDelay: '0.1s' }}>
+              <span className="block text-white/80 italic mb-2 md:mb-3 font-light text-[12px] min-[400px]:text-[14px] sm:text-[18px] md:text-[22px] lg:text-[26px]">Crafting</span>
               Modern Heritage.
             </h1>
             
