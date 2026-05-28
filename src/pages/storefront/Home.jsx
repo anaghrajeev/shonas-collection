@@ -34,12 +34,27 @@ export default function Home() {
   return (
     <>
       <section className="relative w-full min-h-[95vh] flex items-center justify-center overflow-hidden">
-        {/* Background Image Layer */}
+        {/* Background Media Layer */}
         <div className="absolute inset-0 z-0">
-          <div className="w-full h-full bg-cover bg-center animate-image-pan opacity-90 scale-105 transition-transform duration-[20s] hover:scale-110" style={{ backgroundImage: "url('/indian_heritage_hero_bg.png')" }}></div>
-          {/* Overlays for premium contrast */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-surface"></div>
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/20 to-transparent"></div>
+          {/* Fallback Background Image (displays while loading or if video fails/is absent) */}
+          <div className="absolute inset-0 w-full h-full bg-cover bg-center animate-image-pan opacity-90 scale-105 transition-transform duration-[20s] hover:scale-110" style={{ backgroundImage: "url('/indian_heritage_hero_bg.png')" }}></div>
+          
+          {/* Background Video Player */}
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover opacity-75 mix-blend-normal transition-opacity duration-1000"
+            poster="/indian_heritage_hero_bg.png"
+          >
+            <source src="/videos/hero-bg.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          
+          {/* Overlays for premium contrast and readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-surface"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/30 to-transparent"></div>
         </div>
         
         {/* Content */}
