@@ -35,7 +35,7 @@ export default function TopNavBar() {
 
         <ul className="hidden md:flex gap-8 items-center font-label-lg text-label-lg">
           <li><Link className={getClassName("/home")} to="/home">Home</Link></li>
-          <li><Link className={getClassName("/shop?category=madisars")} to="/shop?category=madisars">Madisars</Link></li>
+          <li><Link className={getClassName("/shop?category=madisars")} to="/shop?category=madisars">Madisar & Panchagacham</Link></li>
           <li><Link className={getClassName("/shop?category=ladies")} to="/shop?category=ladies">Ladies</Link></li>
           <li><Link className={getClassName("/shop?category=mens")} to="/shop?category=mens">Mens</Link></li>
           <li><Link className={getClassName("/shop?category=kids")} to="/shop?category=kids">Kids</Link></li>
@@ -49,7 +49,7 @@ export default function TopNavBar() {
         <div className="md:hidden pt-4 pb-2 border-t border-outline-variant/30 mt-4 animate-fade-in-up">
           <ul className="flex flex-col gap-4 font-label-lg text-label-lg">
             <li><Link onClick={() => setIsMobileMenuOpen(false)} className={`inline-block ${getClassName("/home")}`} to="/home">Home</Link></li>
-            <li><Link onClick={() => setIsMobileMenuOpen(false)} className={`inline-block ${getClassName("/shop?category=madisars")}`} to="/shop?category=madisars">Madisars</Link></li>
+            <li><Link onClick={() => setIsMobileMenuOpen(false)} className={`inline-block ${getClassName("/shop?category=madisars")}`} to="/shop?category=madisars">Madisar & Panchagacham</Link></li>
             <li><Link onClick={() => setIsMobileMenuOpen(false)} className={`inline-block ${getClassName("/shop?category=ladies")}`} to="/shop?category=ladies">Ladies</Link></li>
             <li><Link onClick={() => setIsMobileMenuOpen(false)} className={`inline-block ${getClassName("/shop?category=mens")}`} to="/shop?category=mens">Mens</Link></li>
             <li><Link onClick={() => setIsMobileMenuOpen(false)} className={`inline-block ${getClassName("/shop?category=kids")}`} to="/shop?category=kids">Kids</Link></li>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getProducts, addProduct, toggleStockStatus, deleteProduct, updateProduct } from '../../utils/productStore';
 
-const CATEGORIES = ['Madisars', 'Ladies', 'Mens', 'Kids', 'Jewellery', 'Home Decor', 'Navratri Specials'];
+const CATEGORIES = ['Madisar & Panchagacham', 'Ladies', 'Mens', 'Kids', 'Jewellery', 'Home Decor', 'Navratri Specials'];
 
 const emptyForm = { name: '', category: '', description: '', images: [''] };
 

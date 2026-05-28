@@ -218,7 +218,7 @@ export default function Home() {
       )}
 
       {selectedImage && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 md:p-8 bg-black/80 backdrop-blur-md" onClick={() => setSelectedImage(null)}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8 bg-black/80 backdrop-blur-md" onClick={() => setSelectedImage(null)}>
           <div className="relative w-full max-w-5xl h-full max-h-[90vh] flex items-center justify-center animate-fade-in-up" onClick={e => e.stopPropagation()}>
             <button onClick={() => setSelectedImage(null)} className="absolute top-4 right-4 text-white/80 hover:text-white transition-colors bg-black/40 rounded-full p-2 z-10 flex items-center justify-center backdrop-blur-sm border border-white/20">
               <span className="material-symbols-outlined text-3xl">close</span>
