@@ -5,6 +5,7 @@ export default function Home() {
   const [reviews, setReviews] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedReview, setSelectedReview] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
     getReviews().then(setReviews).catch(console.error);
@@ -102,40 +103,40 @@ export default function Home() {
             <div className="w-24 h-[2px] bg-primary/40 rounded-full"></div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-gutter auto-rows-[250px] md:auto-rows-[300px]">
-            <a className="group relative md:col-span-2 md:row-span-2 rounded-xl overflow-hidden bg-surface ambient-shadow block" href="#">
+            <div onClick={() => setSelectedImage("https://lh3.googleusercontent.com/aida-public/AB6AXuCCa0Bf_7EjuFu0_vx-HD2-n-pVMgP2r8-6zsGUXjb5O13zdYgALJIR5Br6s5hiGAvykg1TevTUTXMLxcVobWr4VM4TI1xHmn1AwS_3GGVbTPW8qkl3e8kFqkNrwHG1kIqgY5pDj-xjkGCMJAg6hCagy6hohW4S75a3Z4C_gK24joTBcKeFyZbhZ_BbMk8MABb5nOUm_Ydm48LRMJZy24kktFw5nb8t0sDOCI8uCtzh9CDHByQSpjs0oZuMiKk-jMQAnyZPf8Qzwjfl")} className="group relative md:col-span-2 md:row-span-2 rounded-xl overflow-hidden bg-surface ambient-shadow block cursor-pointer">
               <img className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Customized Madisar & Panchagacham" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCa0Bf_7EjuFu0_vx-HD2-n-pVMgP2r8-6zsGUXjb5O13zdYgALJIR5Br6s5hiGAvykg1TevTUTXMLxcVobWr4VM4TI1xHmn1AwS_3GGVbTPW8qkl3e8kFqkNrwHG1kIqgY5pDj-xjkGCMJAg6hCagy6hohW4S75a3Z4C_gK24joTBcKeFyZbhZ_BbMk8MABb5nOUm_Ydm48LRMJZy24kktFw5nb8t0sDOCI8uCtzh9CDHByQSpjs0oZuMiKk-jMQAnyZPf8Qzwjfl" />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent"></div>
               <div className="absolute bottom-0 left-0 p-8 w-full flex justify-between items-end">
                 <div>
-                  <h3 className="font-headline-md text-headline-md text-white mb-2">Customized Madisar & Panchagacham</h3>
+                  <h3 className="font-headline-md text-headline-md text-white mb-2">Madisar & Panchagacham</h3>
                   <span className="font-label-lg text-label-lg text-white/80 uppercase tracking-widest">Shop Collection</span>
                 </div>
               </div>
-            </a>
-            <a className="group relative rounded-xl overflow-hidden bg-surface ambient-shadow block" href="#">
+            </div>
+            <div onClick={() => setSelectedImage("https://lh3.googleusercontent.com/aida-public/AB6AXuB4CO5rSSoNNnL0wKgsVI7jXdd6J_Ba-1fR60FqifM1XtvQRtC5WPrzlzpoVyrWhWfXu2gPPz09_y8VhK3Y3FwRBvnSpFrzPqBi0ELk8Z3De-oJHJbewjLNyFayqHV4L7CrW6KZASLiOCD4q2CZSn2ZquUj8JUfBLZKDjb850mDy64Kfd6Ji-k3bfygtGHw9SHQYkQIh-SHGxRVNRmnVkVdV4gtGPeYoLxGYB_Hd1ffbVSPJSRs9OGQ5AOdelLWa2mXWCYBZKes1l2L")} className="group relative rounded-xl overflow-hidden bg-surface ambient-shadow block cursor-pointer">
               <img className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Ladies Wear" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4CO5rSSoNNnL0wKgsVI7jXdd6J_Ba-1fR60FqifM1XtvQRtC5WPrzlzpoVyrWhWfXu2gPPz09_y8VhK3Y3FwRBvnSpFrzPqBi0ELk8Z3De-oJHJbewjLNyFayqHV4L7CrW6KZASLiOCD4q2CZSn2ZquUj8JUfBLZKDjb850mDy64Kfd6Ji-k3bfygtGHw9SHQYkQIh-SHGxRVNRmnVkVdV4gtGPeYoLxGYB_Hd1ffbVSPJSRs9OGQ5AOdelLWa2mXWCYBZKes1l2L" />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/70 via-transparent to-transparent"></div>
               <div className="absolute bottom-0 left-0 p-6">
                 <h3 className="font-headline-md text-[20px] font-semibold text-white mb-1">Ladies Wear</h3>
                 <span className="font-label-md text-label-md text-white/80 uppercase">Kurtis & Sarees</span>
               </div>
-            </a>
-            <a className="group relative rounded-xl overflow-hidden bg-surface ambient-shadow block" href="#">
+            </div>
+            <div onClick={() => setSelectedImage("https://lh3.googleusercontent.com/aida-public/AB6AXuCdUnSIg1E7YGMER31sDqNYnyiQeKIFPCM0mC326DYMfjXxzKcw4_hsN8yJPLdGqEJyscoVe0dk-9CRUR_d0GNNK-UiSf2YpGqN7gVWPeG48H9_bvXkKBcsO0PbQyzO9C_aoJN_8-LZSt79V2ldfvrIkfc8YkwnZzhUQkzohF5iRUiEMZXGu7Chy1l2urzNysj3A63O7qYo417CpKfoL-lfOHHjCs_tyCQCP6fosGXfDTz15C_K-SVNh0Zcf8f_lmUGTvLlXWRvaczW")} className="group relative rounded-xl overflow-hidden bg-surface ambient-shadow block cursor-pointer">
               <img className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Mens & Kids" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdUnSIg1E7YGMER31sDqNYnyiQeKIFPCM0mC326DYMfjXxzKcw4_hsN8yJPLdGqEJyscoVe0dk-9CRUR_d0GNNK-UiSf2YpGqN7gVWPeG48H9_bvXkKBcsO0PbQyzO9C_aoJN_8-LZSt79V2ldfvrIkfc8YkwnZzhUQkzohF5iRUiEMZXGu7Chy1l2urzNysj3A63O7qYo417CpKfoL-lfOHHjCs_tyCQCP6fosGXfDTz15C_K-SVNh0Zcf8f_lmUGTvLlXWRvaczW" />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/70 via-transparent to-transparent"></div>
               <div className="absolute bottom-0 left-0 p-6">
                 <h3 className="font-headline-md text-[20px] font-semibold text-white mb-1">Mens & Kids</h3>
                 <span className="font-label-md text-label-md text-white/80 uppercase">Traditional Wear</span>
               </div>
-            </a>
-            <a className="group relative rounded-xl overflow-hidden bg-surface ambient-shadow block md:col-span-2" href="#">
+            </div>
+            <div onClick={() => setSelectedImage("https://lh3.googleusercontent.com/aida-public/AB6AXuDv8leZzJ1kaH-BVJqA573so-MWsCCSnjmmIPI6aKCta7sxt9Ah7Bixgkc4wz2gUPHCbAd51q7FBMd37txXUCAd-kmMN5lWXQg5mzDw2euJUxGg9HV0x4kuxf4fjVAic2rP4yRfixrXxxTWlWYhMkceCXrxVX7_Bt3KEGV0AWFqPYqoHRBY7rVMrT57BY0xnPmkcDLcAqhGrJYLSuD4Ve-2ws9wB3Svt99NFx44KVOfSv97bLOQQSuBMnf4lw5vUaLmLXHswGnrPoT8")} className="group relative rounded-xl overflow-hidden bg-surface ambient-shadow block md:col-span-2 cursor-pointer">
               <img className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Traditional & Oxidised Jewellery" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDv8leZzJ1kaH-BVJqA573so-MWsCCSnjmmIPI6aKCta7sxt9Ah7Bixgkc4wz2gUPHCbAd51q7FBMd37txXUCAd-kmMN5lWXQg5mzDw2euJUxGg9HV0x4kuxf4fjVAic2rP4yRfixrXxxTWlWYhMkceCXrxVX7_Bt3KEGV0AWFqPYqoHRBY7rVMrT57BY0xnPmkcDLcAqhGrJYLSuD4Ve-2ws9wB3Svt99NFx44KVOfSv97bLOQQSuBMnf4lw5vUaLmLXHswGnrPoT8" />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/70 via-transparent to-transparent"></div>
               <div className="absolute bottom-0 left-0 p-6">
                 <h3 className="font-headline-md text-[20px] font-semibold text-white mb-1">Traditional & Oxidised Jewellery</h3>
                 <span className="font-label-md text-label-md text-white/80 uppercase">Adornments</span>
               </div>
-            </a>
+            </div>
           </div>
         </section>
 
@@ -193,7 +194,7 @@ export default function Home() {
       </div>
 
       {selectedReview && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm" onClick={() => setSelectedReview(null)}>
+        <div className="fixed inset-0 z-[50] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm" onClick={() => setSelectedReview(null)}>
           <div className="bg-white rounded-2xl p-8 max-w-lg w-full max-h-[80vh] flex flex-col gap-6 ambient-shadow animate-fade-in-up" onClick={e => e.stopPropagation()}>
             <div className="flex justify-between items-start">
               <div className="flex text-[#FBBC04]">
@@ -212,6 +213,17 @@ export default function Home() {
               <p className="font-label-lg text-primary text-xl">{selectedReview.name}</p>
               <p className="font-label-md text-secondary text-lg">{selectedReview.loc}</p>
             </div>
+          </div>
+        </div>
+      )}
+
+      {selectedImage && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 md:p-8 bg-black/80 backdrop-blur-md" onClick={() => setSelectedImage(null)}>
+          <div className="relative w-full max-w-5xl h-full max-h-[90vh] flex items-center justify-center animate-fade-in-up" onClick={e => e.stopPropagation()}>
+            <button onClick={() => setSelectedImage(null)} className="absolute top-4 right-4 text-white/80 hover:text-white transition-colors bg-black/40 rounded-full p-2 z-10 flex items-center justify-center backdrop-blur-sm border border-white/20">
+              <span className="material-symbols-outlined text-3xl">close</span>
+            </button>
+            <img src={selectedImage} alt="Collection Full View" className="max-w-full max-h-full object-contain rounded-xl shadow-2xl" />
           </div>
         </div>
       )}
