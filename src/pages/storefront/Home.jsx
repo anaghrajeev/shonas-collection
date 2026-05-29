@@ -75,11 +75,15 @@ export default function Home() {
               From authentic readymade Madisars to exquisite Navratri decor. Custom-crafted in Kerala, delivered to your doorstep worldwide.
             </p>
 
-            <div className="mt-12 flex flex-col sm:flex-row gap-6 animate-fade-in-up w-full sm:w-auto" style={{ animationDelay: '0.3s' }}>
-              <a className="bg-primary text-white font-label-lg text-label-lg px-10 py-4 rounded-none uppercase tracking-[0.2em] hover:bg-primary-container transition-all duration-500 border border-primary hover:shadow-[0_0_30px_rgba(77,2,26,0.6)] text-center" href="#collections">
+            <div className="mt-12 flex flex-col sm:flex-row flex-wrap gap-4 md:gap-6 animate-fade-in-up w-full sm:w-auto" style={{ animationDelay: '0.3s' }}>
+              <a className="bg-primary text-white font-label-lg text-label-lg px-8 py-4 rounded-none uppercase tracking-[0.2em] hover:bg-primary-container transition-all duration-500 border border-primary hover:shadow-[0_0_30px_rgba(77,2,26,0.6)] text-center flex-1 sm:flex-none" href="#collections">
                 Explore Collections
               </a>
-              <a className="bg-white/5 backdrop-blur-sm text-white font-label-lg text-label-lg px-10 py-4 rounded-none uppercase tracking-[0.2em] hover:bg-white/20 transition-all duration-500 border border-white/20 text-center" href="#story">
+              <a className="bg-white/5 backdrop-blur-sm text-white font-label-lg text-label-lg px-8 py-4 rounded-none uppercase tracking-[0.2em] hover:bg-white/20 transition-all duration-500 border border-white/20 text-center flex items-center justify-center gap-2 flex-1 sm:flex-none group" href="https://www.instagram.com/p/DYnRcl5SVSr/" target="_blank" rel="noopener noreferrer">
+                <span className="material-symbols-outlined text-[20px] group-hover:scale-110 transition-transform">play_circle</span>
+                Watch Full Video
+              </a>
+              <a className="bg-white/5 backdrop-blur-sm text-white font-label-lg text-label-lg px-8 py-4 rounded-none uppercase tracking-[0.2em] hover:bg-white/20 transition-all duration-500 border border-white/20 text-center flex-1 sm:flex-none" href="#story">
                 Our Story
               </a>
             </div>
