@@ -12,17 +12,38 @@ function waLink(productName) {
 function ProductModal({ product, onClose }) {
   const scrollRef = useRef(null);
   const images = product.images?.length ? product.images : [product.img].filter(Boolean);
+  const [zoomedIndex, setZoomedIndex] = useState(null);
 
   // Close on Escape key
   useEffect(() => {
-    const handleKey = (e) => { if (e.key === 'Escape') onClose(); };
+    const handleKey = (e) => { 
+      if (e.key === 'Escape') {
+        setZoomedIndex(prev => {
+          if (prev !== null) return null;
+          onClose();
+          return prev;
+        });
+      }
+      if (e.key === 'ArrowLeft') {
+        setZoomedIndex(prev => {
+          if (prev !== null) return prev > 0 ? prev - 1 : images.length - 1;
+          return prev;
+        });
+      }
+      if (e.key === 'ArrowRight') {
+        setZoomedIndex(prev => {
+          if (prev !== null) return prev < images.length - 1 ? prev + 1 : 0;
+          return prev;
+        });
+      }
+    };
     document.addEventListener('keydown', handleKey);
     document.body.style.overflow = 'hidden';
     return () => {
       document.removeEventListener('keydown', handleKey);
       document.body.style.overflow = '';
     };
-  }, [onClose]);
+  }, [onClose, images.length]);
 
   const scroll = (dir) => {
     if (scrollRef.current) {
@@ -48,7 +69,7 @@ function ProductModal({ product, onClose }) {
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {images.map((src, i) => (
-              <div key={i} className="flex-shrink-0 w-full snap-start aspect-[4/3]">
+              <div key={i} className="flex-shrink-0 w-full snap-start aspect-[4/3] cursor-zoom-in" onClick={() => setZoomedIndex(i)}>
                 <img
                   src={src}
                   alt={`${product.name} view ${i + 1}`}
@@ -136,6 +157,51 @@ function ProductModal({ product, onClose }) {
           </div>
         </div>
       </div>
+
+      {/* Lightbox */}
+      {zoomedIndex !== null && (
+        <div
+          className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/95 backdrop-blur-md animate-fade-in"
+          onClick={() => setZoomedIndex(null)}
+        >
+          {images.length > 1 && (
+            <>
+              <button
+                onClick={(e) => { e.stopPropagation(); setZoomedIndex((prev) => (prev > 0 ? prev - 1 : images.length - 1)); }}
+                className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white rounded-full p-3 transition-colors backdrop-blur-sm z-10"
+              >
+                <span className="material-symbols-outlined text-3xl">chevron_left</span>
+              </button>
+              <button
+                onClick={(e) => { e.stopPropagation(); setZoomedIndex((prev) => (prev < images.length - 1 ? prev + 1 : 0)); }}
+                className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white rounded-full p-3 transition-colors backdrop-blur-sm z-10"
+              >
+                <span className="material-symbols-outlined text-3xl">chevron_right</span>
+              </button>
+            </>
+          )}
+
+          <button
+            onClick={() => setZoomedIndex(null)}
+            className="absolute top-4 right-4 bg-white/10 hover:bg-white/20 text-white rounded-full p-2 backdrop-blur-sm transition-colors z-10"
+          >
+            <span className="material-symbols-outlined text-2xl">close</span>
+          </button>
+
+          <img
+            src={images[zoomedIndex]}
+            alt={`${product.name} zoomed view ${zoomedIndex + 1}`}
+            className="max-w-full max-h-full object-contain cursor-zoom-out select-none shadow-2xl"
+            onClick={(e) => { e.stopPropagation(); setZoomedIndex(null); }}
+          />
+
+          {images.length > 1 && (
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/70 font-label-md bg-black/50 px-4 py-1.5 rounded-full backdrop-blur-sm shadow-lg">
+              {zoomedIndex + 1} / {images.length}
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
