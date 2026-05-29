@@ -130,6 +130,27 @@ export default function Home() {
       </section>
 
       <div className="w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16 md:py-24 flex flex-col gap-16 md:gap-32">
+        {/* Launch Offer Section */}
+        <section id="launch-offer" className="flex flex-col gap-8 items-center justify-center pt-8">
+          <div className="flex flex-col items-center gap-4 text-center">
+            <span className="font-label-lg text-label-lg text-secondary uppercase tracking-widest">Exclusive Rewards</span>
+            <h2 className="font-headline-lg text-headline-lg text-primary">Website Launch Offers</h2>
+            <div className="w-24 h-[2px] bg-primary/40 rounded-full"></div>
+          </div>
+          <div className="w-full max-w-2xl bg-surface-container-low p-4 md:p-6 rounded-3xl ambient-shadow border border-outline-variant/30 overflow-hidden group hover:scale-[1.01] transition-all duration-500 cursor-pointer" onClick={() => setSelectedImage("/website_launch_offer.jpg")}>
+            <div className="relative rounded-2xl overflow-hidden shadow-lg w-full">
+              <img 
+                src="/website_launch_offer.jpg" 
+                alt="Website Launch Offer Poster" 
+                className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-[1.02]"
+              />
+              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <span className="material-symbols-outlined text-white text-5xl bg-black/30 p-4 rounded-full backdrop-blur-sm border border-white/20">zoom_in</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section id="collections" className="flex flex-col gap-12 pt-8">
           <div className="flex flex-col items-center gap-4 text-center">
             <h2 className="font-headline-lg text-headline-lg text-primary">Explore Our Collections</h2>
