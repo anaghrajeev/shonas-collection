@@ -6,7 +6,7 @@ export default function TopNavBar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const currentPath = location.pathname + location.search;
 
-  const isActive = (path) => currentPath === path || (path === '/home' && currentPath === '/home');
+  const isActive = (path) => currentPath === path;
   
   const getClassName = (path) => 
     isActive(path) 
@@ -16,7 +16,7 @@ export default function TopNavBar() {
   return (
     <nav className="w-full px-margin-mobile md:px-margin-desktop py-4 sticky top-0 backdrop-blur-md border-b-0 shadow-sm bg-surface/90 dark:bg-inverse-surface/90 z-40 transition-all duration-300">
       <div className="flex justify-between items-center w-full">
-        <Link to="/home" className="flex flex-col group">
+        <Link to="/" className="flex flex-col group">
           <div className="flex items-center gap-3 md:gap-4">
             <img alt="Shona's Collection Logo" className="h-10 md:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105" src="/logo.png" />
             <span className="font-display-lg text-[18px] md:text-headline-lg tracking-widest text-primary dark:text-primary-fixed-dim">SHONA'S COLLECTION</span>
@@ -34,7 +34,7 @@ export default function TopNavBar() {
         </button>
 
         <ul className="hidden md:flex gap-8 items-center font-label-lg text-label-lg">
-          <li><Link className={getClassName("/home")} to="/home">Home</Link></li>
+          <li><Link className={getClassName("/")} to="/">Home</Link></li>
           <li><Link className={getClassName("/shop?category=madisars")} to="/shop?category=madisars">Madisar & Panchagacham</Link></li>
           <li><Link className={getClassName("/shop?category=ladies")} to="/shop?category=ladies">Ladies</Link></li>
           <li><Link className={getClassName("/shop?category=mens")} to="/shop?category=mens">Mens</Link></li>
@@ -48,7 +48,7 @@ export default function TopNavBar() {
       {isMobileMenuOpen && (
         <div className="md:hidden pt-4 pb-2 border-t border-outline-variant/30 mt-4 animate-fade-in-up">
           <ul className="flex flex-col gap-4 font-label-lg text-label-lg">
-            <li><Link onClick={() => setIsMobileMenuOpen(false)} className={`inline-block ${getClassName("/home")}`} to="/home">Home</Link></li>
+            <li><Link onClick={() => setIsMobileMenuOpen(false)} className={`inline-block ${getClassName("/")}`} to="/">Home</Link></li>
             <li><Link onClick={() => setIsMobileMenuOpen(false)} className={`inline-block ${getClassName("/shop?category=madisars")}`} to="/shop?category=madisars">Madisar & Panchagacham</Link></li>
             <li><Link onClick={() => setIsMobileMenuOpen(false)} className={`inline-block ${getClassName("/shop?category=ladies")}`} to="/shop?category=ladies">Ladies</Link></li>
             <li><Link onClick={() => setIsMobileMenuOpen(false)} className={`inline-block ${getClassName("/shop?category=mens")}`} to="/shop?category=mens">Mens</Link></li>
