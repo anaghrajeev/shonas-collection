@@ -1,15 +1,18 @@
 import { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
 import { getReviews } from '../../utils/reviewStore';
+import { getTestimonials } from '../../utils/testimonialStore';
 
 export default function Home() {
   const [reviews, setReviews] = useState([]);
+  const [testimonials, setTestimonials] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedReview, setSelectedReview] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
     getReviews().then(setReviews).catch(console.error);
+    getTestimonials().then(setTestimonials).catch(console.error);
 
     // Launch day confetti popper effect
     const duration = 3000;
@@ -60,6 +63,17 @@ export default function Home() {
   };
 
   const visibleReviews = getVisibleReviews();
+
+  const getEmbedUrl = (url) => {
+    if (!url) return null;
+    const ytMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^&?]+)/);
+    if (ytMatch) return `https://www.youtube.com/embed/${ytMatch[1]}`;
+    return url;
+  };
+
+  const isYouTube = (url) => {
+    return !!url?.match(/(?:youtu\.be\/|youtube\.com\/)/);
+  };
 
   return (
     <>
@@ -222,6 +236,49 @@ export default function Home() {
             ))}
           </div>
         </section>
+
+        {testimonials.length > 0 && (
+          <section id="testimonial-videos" className="flex flex-col gap-8 md:gap-12 pt-8">
+            <div className="flex flex-col items-center gap-4 text-center">
+              <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full ambient-shadow">
+                <span className="material-symbols-outlined text-[#FBBC04]" style={{ fontVariationSettings: "'FILL' 1" }}>video_library</span>
+                <span className="font-label-lg text-label-lg text-primary">Customer Stories</span>
+              </div>
+              <h2 className="font-headline-lg text-[28px] md:text-headline-lg text-primary">Watch Our Customers Shine</h2>
+              <div className="w-24 h-[2px] bg-primary/40 rounded-full"></div>
+            </div>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {testimonials.map((t) => (
+                <div key={t.id} className="bg-surface rounded-2xl p-4 ambient-shadow flex flex-col gap-4 group hover:scale-[1.02] transition-transform duration-300">
+                  <div className="relative w-full aspect-[9/16] rounded-xl overflow-hidden bg-black flex items-center justify-center shadow-inner">
+                    {isYouTube(t.videoUrl) ? (
+                      <iframe 
+                        src={getEmbedUrl(t.videoUrl)} 
+                        className="absolute inset-0 w-full h-full"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        title={`${t.name} testimonial`}
+                      />
+                    ) : (
+                      <video 
+                        src={t.videoUrl} 
+                        controls 
+                        className="absolute inset-0 w-full h-full object-cover"
+                        preload="metadata"
+                      >
+                        Your browser does not support the video tag.
+                      </video>
+                    )}
+                  </div>
+                  <div className="text-center pt-2 border-t border-outline-variant/30">
+                    <p className="font-label-lg text-primary">{t.name}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
 
         <section id="story" className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center pt-8">
           <div className="relative rounded-2xl overflow-hidden ambient-shadow h-[400px] md:h-[600px]">
