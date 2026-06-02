@@ -13,6 +13,7 @@ import Shop from './pages/storefront/Shop';
 import Login from './pages/admin/Login';
 import Products from './pages/admin/Products';
 import Reviews from './pages/admin/Reviews';
+import Testimonials from './pages/admin/Testimonials';
 
 import Shipping from './pages/storefront/Shipping';
 import Wholesale from './pages/storefront/Wholesale';
@@ -40,6 +41,7 @@ export default function App() {
           <Route path="orders" element={<div className="font-display-lg text-primary text-2xl">Orders feature coming soon...</div>} />
           <Route path="customers" element={<div className="font-display-lg text-primary text-2xl">Customers feature coming soon...</div>} />
           <Route path="reviews" element={<Reviews />} />
+          <Route path="testimonials" element={<Testimonials />} />
         </Route>
       </Routes>
     </Router>
