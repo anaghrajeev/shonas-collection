@@ -140,7 +140,7 @@ export default function Testimonials() {
                 <span className="material-symbols-outlined text-sm">delete</span>
               </button>
               
-              <div className="relative w-full aspect-video rounded-lg overflow-hidden bg-black flex items-center justify-center group-hover:shadow-md transition-shadow">
+              <div className="relative w-full aspect-[9/16] rounded-lg overflow-hidden bg-black flex items-center justify-center group-hover:shadow-md transition-shadow">
                 {isYouTube(t.videoUrl) ? (
                   <iframe 
                     src={getEmbedUrl(t.videoUrl)} 
