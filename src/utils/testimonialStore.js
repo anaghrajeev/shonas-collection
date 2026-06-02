@@ -1,49 +1,42 @@
-// Utility for managing testimonial videos using localStorage
-// We use localStorage here since we don't have a Supabase table set up for this yet.
+import { supabase } from '../lib/supabase';
 
-const STORAGE_KEY = 'shonas_testimonials';
-
-function getStoredTestimonials() {
-  const data = localStorage.getItem(STORAGE_KEY);
-  return data ? JSON.parse(data) : [];
-}
-
-function saveTestimonials(testimonials) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(testimonials));
+function mapTestimonial(row) {
+  return {
+    id: row.id,
+    name: row.name,
+    videoUrl: row.videoUrl, // Make sure your Supabase column is named 'videoUrl' (case-sensitive) or update this accordingly
+    created_at: row.created_at,
+  };
 }
 
 export async function getTestimonials() {
-  // Simulate network delay
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(getStoredTestimonials());
-    }, 400);
-  });
+  const { data, error } = await supabase
+    .from('testimonials')
+    .select('*')
+    .order('created_at', { ascending: true });
+  
+  if (error) throw error;
+  return data.map(mapTestimonial);
 }
 
 export async function addTestimonial(testimonial) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      const testimonials = getStoredTestimonials();
-      const newTestimonial = {
-        ...testimonial,
-        id: Date.now().toString(),
-        created_at: new Date().toISOString()
-      };
-      testimonials.push(newTestimonial);
-      saveTestimonials(testimonials);
-      resolve(newTestimonial);
-    }, 400);
-  });
+  const { data, error } = await supabase
+    .from('testimonials')
+    .insert([{
+      name: testimonial.name,
+      videoUrl: testimonial.videoUrl,
+    }])
+    .select();
+    
+  if (error) throw error;
+  return data.map(mapTestimonial)[0];
 }
 
 export async function deleteTestimonial(id) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      let testimonials = getStoredTestimonials();
-      testimonials = testimonials.filter(t => t.id !== id);
-      saveTestimonials(testimonials);
-      resolve();
-    }, 400);
-  });
+  const { error } = await supabase
+    .from('testimonials')
+    .delete()
+    .eq('id', id);
+    
+  if (error) throw error;
 }
