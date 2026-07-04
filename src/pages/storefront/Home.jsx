@@ -1,47 +1,76 @@
-import { useState, useEffect } from 'react';
-import confetti from 'canvas-confetti';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { getReviews } from '../../utils/reviewStore';
 import { getTestimonials } from '../../utils/testimonialStore';
+import { getPosters } from '../../utils/posterStore';
 
 export default function Home() {
   const [reviews, setReviews] = useState([]);
   const [testimonials, setTestimonials] = useState([]);
+  const [posters, setPosters] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedReview, setSelectedReview] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
 
+  // Poster Carousel state
+  const [posterPage, setPosterPage] = useState(0);
+  const [visibleCount, setVisibleCount] = useState(3);
+  const [isPaused, setIsPaused] = useState(false);
+  const containerRef = useRef(null);
+  const trackRef = useRef(null);
+  const touchStartX = useRef(null);
+
   useEffect(() => {
     getReviews().then(setReviews).catch(console.error);
     getTestimonials().then(setTestimonials).catch(console.error);
-
-    // Launch day confetti popper effect
-    const duration = 3000;
-    const end = Date.now() + duration;
-
-    const frame = () => {
-      confetti({
-        particleCount: 5,
-        angle: 60,
-        spread: 55,
-        origin: { x: 0 },
-        colors: ['#4D021A', '#FBBC04', '#ffffff'],
-        zIndex: 100
-      });
-      confetti({
-        particleCount: 5,
-        angle: 120,
-        spread: 55,
-        origin: { x: 1 },
-        colors: ['#4D021A', '#FBBC04', '#ffffff'],
-        zIndex: 100
-      });
-
-      if (Date.now() < end) {
-        requestAnimationFrame(frame);
-      }
-    };
-    frame();
+    getPosters().then(setPosters).catch(console.error);
   }, []);
+
+  // Responsive visible count
+  useEffect(() => {
+    const update = () => {
+      if (window.innerWidth >= 1024) setVisibleCount(3);
+      else if (window.innerWidth >= 768) setVisibleCount(2);
+      else setVisibleCount(1);
+      setPosterPage(0);
+    };
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, []);
+
+  // Sync track position on page/visibleCount change
+  useEffect(() => {
+    if (!containerRef.current || !trackRef.current) return;
+    const w = containerRef.current.offsetWidth;
+    trackRef.current.style.transform = `translateX(-${posterPage * w}px)`;
+  }, [posterPage, visibleCount, posters.length]);
+
+  const totalPosterPages = posters.length > 0 ? Math.ceil(posters.length / visibleCount) : 0;
+
+  const goToPage = useCallback((page) => {
+    const total = Math.ceil(posters.length / visibleCount);
+    if (total === 0) return;
+    setPosterPage(((page % total) + total) % total);
+  }, [posters.length, visibleCount]);
+
+  // Auto-advance every 3 sec
+  useEffect(() => {
+    if (totalPosterPages <= 1 || isPaused) return;
+    const id = setInterval(() => {
+      setPosterPage(prev => (prev + 1) % totalPosterPages);
+    }, 3000);
+    return () => clearInterval(id);
+  }, [totalPosterPages, isPaused]);
+
+  // Touch swipe
+  const handleTouchStart = (e) => { touchStartX.current = e.targetTouches[0].clientX; };
+  const handleTouchEnd = (e) => {
+    if (touchStartX.current === null) return;
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    if (diff > 40) goToPage(posterPage + 1);
+    else if (diff < -40) goToPage(posterPage - 1);
+    touchStartX.current = null;
+  };
 
   useEffect(() => {
     if (reviews.length <= 3 || selectedReview) return;
@@ -50,6 +79,7 @@ export default function Home() {
     }, 3000);
     return () => clearInterval(interval);
   }, [reviews.length, selectedReview]);
+
 
   const getVisibleReviews = () => {
     if (reviews.length === 0) return [];
@@ -102,8 +132,8 @@ export default function Home() {
         </div>
         
         {/* Content */}
-        <div className="relative z-10 w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-          <div className="max-w-3xl flex flex-col items-start text-left bg-black/20 backdrop-blur-md p-8 md:p-14 rounded-3xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]">
+        <div className="relative z-10 w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16 md:py-0">
+          <div className="max-w-3xl flex flex-col items-start text-left bg-black/20 backdrop-blur-md p-6 md:p-14 rounded-2xl md:rounded-3xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]">
             
             <div className="mb-6 animate-fade-in-up flex items-center gap-4">
               <span className="font-display-lg text-[20px] min-[400px]:text-[24px] sm:text-[30px] md:text-[40px] lg:text-[48px] text-white tracking-widest uppercase drop-shadow-lg font-bold whitespace-nowrap overflow-hidden text-ellipsis">SHONA'S COLLECTION</span>
@@ -114,19 +144,19 @@ export default function Home() {
               Modern Heritage.
             </h1>
             
-            <p className="mt-8 font-body-lg text-body-lg text-white/90 max-w-xl animate-fade-in-up leading-relaxed" style={{ animationDelay: '0.2s' }}>
+            <p className="mt-4 md:mt-8 font-body-lg text-[15px] md:text-body-lg text-white/90 max-w-xl animate-fade-in-up leading-relaxed hidden sm:block" style={{ animationDelay: '0.2s' }}>
               From authentic readymade Madisars to exquisite Navratri decor. Custom-crafted in Kerala, delivered to your doorstep worldwide.
             </p>
 
-            <div className="mt-12 flex flex-col sm:flex-row flex-wrap gap-4 md:gap-6 animate-fade-in-up w-full sm:w-auto" style={{ animationDelay: '0.3s' }}>
-              <a className="bg-primary text-white font-label-lg text-label-lg px-8 py-4 rounded-none uppercase tracking-[0.2em] hover:bg-primary-container transition-all duration-500 border border-primary hover:shadow-[0_0_30px_rgba(77,2,26,0.6)] text-center flex-1 sm:flex-none" href="#collections">
+            <div className="mt-6 md:mt-12 flex flex-col sm:flex-row flex-wrap gap-3 md:gap-6 animate-fade-in-up w-full sm:w-auto" style={{ animationDelay: '0.3s' }}>
+              <a className="bg-primary text-white font-label-lg text-[12px] md:text-label-lg px-6 md:px-8 py-3 md:py-4 rounded-none uppercase tracking-[0.15em] md:tracking-[0.2em] hover:bg-primary-container transition-all duration-500 border border-primary hover:shadow-[0_0_30px_rgba(77,2,26,0.6)] text-center flex-1 sm:flex-none" href="#collections">
                 Explore Collections
               </a>
-              <a className="bg-white/5 backdrop-blur-sm text-white font-label-lg text-label-lg px-8 py-4 rounded-none uppercase tracking-[0.2em] hover:bg-white/20 transition-all duration-500 border border-white/20 text-center flex items-center justify-center gap-2 flex-1 sm:flex-none group" href="https://www.instagram.com/p/DYnRcl5SVSr/" target="_blank" rel="noopener noreferrer">
-                <span className="material-symbols-outlined text-[20px] group-hover:scale-110 transition-transform">play_circle</span>
+              <a className="bg-white/5 backdrop-blur-sm text-white font-label-lg text-[12px] md:text-label-lg px-6 md:px-8 py-3 md:py-4 rounded-none uppercase tracking-[0.15em] md:tracking-[0.2em] hover:bg-white/20 transition-all duration-500 border border-white/20 text-center flex items-center justify-center gap-2 flex-1 sm:flex-none group" href="https://www.instagram.com/p/DYnRcl5SVSr/" target="_blank" rel="noopener noreferrer">
+                <span className="material-symbols-outlined text-[18px] md:text-[20px] group-hover:scale-110 transition-transform">play_circle</span>
                 Watch Full Video
               </a>
-              <a className="bg-white/5 backdrop-blur-sm text-white font-label-lg text-label-lg px-8 py-4 rounded-none uppercase tracking-[0.2em] hover:bg-white/20 transition-all duration-500 border border-white/20 text-center flex-1 sm:flex-none" href="#story">
+              <a className="bg-white/5 backdrop-blur-sm text-white font-label-lg text-[12px] md:text-label-lg px-6 md:px-8 py-3 md:py-4 rounded-none uppercase tracking-[0.15em] md:tracking-[0.2em] hover:bg-white/20 transition-all duration-500 border border-white/20 text-center flex-1 sm:flex-none" href="#story">
                 Our Story
               </a>
             </div>
@@ -143,26 +173,114 @@ export default function Home() {
         </div>
       </section>
 
-      <div className="w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16 md:py-24 flex flex-col gap-16 md:gap-32">
-        {/* Launch Offer Section */}
-        <section id="launch-offer" className="flex flex-col gap-8 items-center justify-center pt-8">
-          <div className="flex flex-col items-center gap-4 text-center">
-            <span className="font-label-lg text-label-lg text-secondary uppercase tracking-widest">Exclusive Rewards</span>
-            <h2 className="font-headline-lg text-headline-lg text-primary">Website Launch Offers</h2>
-            <div className="w-24 h-[2px] bg-primary/40 rounded-full"></div>
+      <div className="w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-10 md:py-24 flex flex-col gap-10 md:gap-32">
+        {/* Featured Highlights Section */}
+        <section id="launch-offer" className="flex flex-col gap-6 md:gap-8 items-center justify-center">
+          <div className="flex flex-col items-center gap-3 text-center">
+            <span className="font-label-lg text-label-lg text-secondary uppercase tracking-widest text-[11px] md:text-[14px]">Discover</span>
+            <h2 className="font-headline-lg text-[24px] md:text-headline-lg text-primary">Featured Highlights</h2>
+            <div className="w-16 md:w-24 h-[2px] bg-primary/40 rounded-full"></div>
           </div>
-          <div className="w-full max-w-2xl bg-surface-container-low p-4 md:p-6 rounded-3xl ambient-shadow border border-outline-variant/30 overflow-hidden group hover:scale-[1.01] transition-all duration-500 cursor-pointer" onClick={() => setSelectedImage("/website_launch_offer.jpg")}>
-            <div className="relative rounded-2xl overflow-hidden shadow-lg w-full">
-              <img 
-                src="/website_launch_offer.jpg" 
-                alt="Website Launch Offer Poster" 
-                className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-[1.02]"
-              />
-              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                <span className="material-symbols-outlined text-white text-5xl bg-black/30 p-4 rounded-full backdrop-blur-sm border border-white/20">zoom_in</span>
+
+          {posters.length > 0 ? (
+            <div className="w-full">
+              {/* Carousel wrapper */}
+              <div
+                className="relative overflow-hidden rounded-2xl"
+                ref={containerRef}
+                onMouseEnter={() => setIsPaused(true)}
+                onMouseLeave={() => setIsPaused(false)}
+                onTouchStart={handleTouchStart}
+                onTouchEnd={handleTouchEnd}
+              >
+                {/* Sliding track */}
+                <div
+                  ref={trackRef}
+                  className="flex transition-transform duration-500 ease-in-out"
+                  style={{ width: `${(posters.length / visibleCount) * 100}%` }}
+                >
+                  {posters.map((p, idx) => (
+                    <div
+                      key={p.id}
+                      style={{ width: `${100 / posters.length}%` }}
+                      className="flex-shrink-0 px-2"
+                    >
+                      <div
+                        className="group relative rounded-2xl overflow-hidden ambient-shadow cursor-pointer border border-outline-variant/20 hover:shadow-[0_8px_32px_rgba(77,2,26,0.18)] transition-shadow duration-500"
+                        onClick={() => setSelectedImage(p.imageUrl)}
+                      >
+                        <div className="relative w-full aspect-[4/5] bg-surface-container-low">
+                          <img
+                            src={p.imageUrl}
+                            alt={`Featured Highlight ${idx + 1}`}
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-5">
+                            <span className="text-white font-label-lg text-[12px] uppercase tracking-widest flex items-center gap-1.5 bg-black/30 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20">
+                              <span className="material-symbols-outlined text-[15px]">zoom_in</span>
+                              View Full
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Arrow buttons — desktop only */}
+                {totalPosterPages > 1 && (
+                  <>
+                    <button
+                      onClick={() => goToPage(posterPage - 1)}
+                      className="absolute left-1 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-primary text-white p-2 rounded-full backdrop-blur-sm border border-white/20 transition-colors z-20 hidden md:flex items-center justify-center"
+                    >
+                      <span className="material-symbols-outlined text-2xl">chevron_left</span>
+                    </button>
+                    <button
+                      onClick={() => goToPage(posterPage + 1)}
+                      className="absolute right-1 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-primary text-white p-2 rounded-full backdrop-blur-sm border border-white/20 transition-colors z-20 hidden md:flex items-center justify-center"
+                    >
+                      <span className="material-symbols-outlined text-2xl">chevron_right</span>
+                    </button>
+                  </>
+                )}
+              </div>
+
+              {/* Dot indicators */}
+              {totalPosterPages > 1 && (
+                <div className="flex justify-center gap-2 mt-4">
+                  {Array.from({ length: totalPosterPages }).map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setPosterPage(i)}
+                      className={`h-2 rounded-full transition-all duration-300 ${i === posterPage ? 'w-6 bg-primary' : 'w-2 bg-outline-variant'}`}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="w-full max-w-xs mx-auto">
+              <div
+                className="group relative rounded-2xl overflow-hidden ambient-shadow cursor-pointer border border-outline-variant/20 hover:shadow-[0_8px_32px_rgba(77,2,26,0.18)] transition-shadow duration-500"
+                onClick={() => setSelectedImage("/website_launch_offer.jpg")}
+              >
+                <div className="relative w-full aspect-[4/5] bg-surface-container-low">
+                  <img
+                    src="/website_launch_offer.jpg"
+                    alt="Website Launch Offer Poster"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-5">
+                    <span className="text-white font-label-lg text-[12px] uppercase tracking-widest flex items-center gap-1.5 bg-black/30 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20">
+                      <span className="material-symbols-outlined text-[15px]">zoom_in</span>
+                      View Full
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </section>
 
         <section id="collections" className="flex flex-col gap-12 pt-8">
@@ -170,7 +288,7 @@ export default function Home() {
             <h2 className="font-headline-lg text-headline-lg text-primary">Explore Our Collections</h2>
             <div className="w-24 h-[2px] bg-primary/40 rounded-full"></div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-gutter auto-rows-[250px] md:auto-rows-[300px]">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-gutter auto-rows-[200px] md:auto-rows-[300px]">
             <div onClick={() => setSelectedImage("https://lh3.googleusercontent.com/aida-public/AB6AXuCCa0Bf_7EjuFu0_vx-HD2-n-pVMgP2r8-6zsGUXjb5O13zdYgALJIR5Br6s5hiGAvykg1TevTUTXMLxcVobWr4VM4TI1xHmn1AwS_3GGVbTPW8qkl3e8kFqkNrwHG1kIqgY5pDj-xjkGCMJAg6hCagy6hohW4S75a3Z4C_gK24joTBcKeFyZbhZ_BbMk8MABb5nOUm_Ydm48LRMJZy24kktFw5nb8t0sDOCI8uCtzh9CDHByQSpjs0oZuMiKk-jMQAnyZPf8Qzwjfl")} className="group relative md:col-span-2 md:row-span-2 rounded-xl overflow-hidden bg-surface ambient-shadow block cursor-pointer">
               <img className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Customized Madisar & Panchagacham" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCa0Bf_7EjuFu0_vx-HD2-n-pVMgP2r8-6zsGUXjb5O13zdYgALJIR5Br6s5hiGAvykg1TevTUTXMLxcVobWr4VM4TI1xHmn1AwS_3GGVbTPW8qkl3e8kFqkNrwHG1kIqgY5pDj-xjkGCMJAg6hCagy6hohW4S75a3Z4C_gK24joTBcKeFyZbhZ_BbMk8MABb5nOUm_Ydm48LRMJZy24kktFw5nb8t0sDOCI8uCtzh9CDHByQSpjs0oZuMiKk-jMQAnyZPf8Qzwjfl" />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent"></div>
@@ -216,9 +334,9 @@ export default function Home() {
             </div>
             <h2 className="font-headline-lg text-[28px] md:text-headline-lg text-primary">Trusted by Families Worldwide</h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
             {visibleReviews.map((t, i) => (
-              <div key={`${t.id}-${i}`} className="bg-white p-8 rounded-xl ambient-shadow flex flex-col gap-4 animate-fade-in-up h-[320px]">
+              <div key={`${t.id}-${i}`} className="bg-white p-6 md:p-8 rounded-xl ambient-shadow flex flex-col gap-4 animate-fade-in-up min-h-[240px] md:h-[320px]">
                 <div className="flex text-[#FBBC04]">
                   {Array.from({ length: 5 }).map((_, starIndex) => (
                     <span key={starIndex} className="material-symbols-outlined" style={{ fontVariationSettings: starIndex < (t.rating || 5) ? "'FILL' 1" : "'FILL' 0", opacity: starIndex < (t.rating || 5) ? 1 : 0.3 }}>star</span>
@@ -248,7 +366,7 @@ export default function Home() {
               <div className="w-24 h-[2px] bg-primary/40 rounded-full"></div>
             </div>
             
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
               {testimonials.map((t) => (
                 <div key={t.id} className="bg-surface rounded-2xl p-4 ambient-shadow flex flex-col gap-4 group hover:scale-[1.02] transition-transform duration-300">
                   <div className="relative w-full aspect-[9/16] rounded-xl overflow-hidden bg-black flex items-center justify-center shadow-inner">
@@ -281,8 +399,8 @@ export default function Home() {
         )}
 
         <section id="story" className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center pt-8">
-          <div className="relative rounded-2xl overflow-hidden ambient-shadow h-[400px] md:h-[600px]">
-            <img className="w-full h-full object-cover object-top" alt="Founder" src="/founder.png" />
+          <div className="relative rounded-2xl overflow-hidden ambient-shadow h-[360px] md:h-[600px]">
+            <img className="w-full h-full object-cover object-center" alt="Founder" src="/founder.png" />
           </div>
           <div className="flex flex-col gap-6">
             <span className="font-label-lg text-label-lg text-outline uppercase tracking-widest">Our Story</span>

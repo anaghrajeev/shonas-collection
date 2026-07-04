@@ -7,6 +7,7 @@ const NAV_ITEMS = [
   { to: '/admin/customers', icon: 'group',        label: 'Customers' },
   { to: '/admin/reviews',   icon: 'star',         label: 'Reviews'   },
   { to: '/admin/testimonials', icon: 'video_library', label: 'Testimonials' },
+  { to: '/admin/posters',   icon: 'view_carousel', label: 'Posters' },
 ];
 
 export default function AdminLayout() {

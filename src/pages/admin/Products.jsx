@@ -3,7 +3,7 @@ import { getProducts, addProduct, toggleStockStatus, deleteProduct, updateProduc
 
 const CATEGORIES = ['Madisar & Panchagacham', 'Ladies', 'Mens', 'Kids', 'Jewellery', 'Home Decor', 'Navratri Specials'];
 
-const emptyForm = { name: '', category: '', description: '', images: [''] };
+const emptyForm = { name: '', category: '', description: '', images: [''], sizes: [] };
 
 // ── Image URL input list ──────────────────────────────────────────────────
 function ImageUrlsInput({ images, onChange }) {
@@ -89,6 +89,76 @@ function ImageUrlsInput({ images, onChange }) {
   );
 }
 
+// ── Sizes Input ───────────────────────────────────────────────────────────
+function SizesInput({ sizes, onChange }) {
+  const [inputValue, setInputValue] = useState('');
+
+  const addSize = () => {
+    const val = inputValue.trim();
+    if (val && !sizes.includes(val)) {
+      onChange([...sizes, val]);
+    }
+    setInputValue('');
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' || e.key === ',') {
+      e.preventDefault();
+      addSize();
+    }
+  };
+
+  const removeSize = (sizeToRemove) => {
+    onChange(sizes.filter(s => s !== sizeToRemove));
+  };
+
+  return (
+    <div className="flex flex-col gap-3">
+      <label className="block font-label-md text-on-surface">
+        Available Sizes
+        <span className="ml-2 font-body-md text-[11px] text-secondary normal-case tracking-normal">
+          (optional, e.g. S, M, L, 34. Press Enter or comma to add)
+        </span>
+      </label>
+      
+      <div className="flex items-center gap-2">
+        <input
+          type="text"
+          value={inputValue}
+          onChange={e => setInputValue(e.target.value)}
+          onKeyDown={handleKeyDown}
+          placeholder="Type size and press Enter"
+          className="flex-1 px-3 py-2 border border-outline-variant/50 rounded-lg bg-surface text-on-surface text-sm max-w-[250px]"
+        />
+        <button
+          type="button"
+          onClick={addSize}
+          className="bg-primary/10 text-primary hover:bg-primary/20 px-4 py-2 rounded-lg font-label-md transition-colors text-sm"
+        >
+          Add
+        </button>
+      </div>
+
+      {sizes.length > 0 && (
+        <div className="flex flex-wrap gap-2 mt-2">
+          {sizes.map(size => (
+            <div key={size} className="flex items-center gap-1 bg-surface-container-high px-3 py-1 rounded-full border border-outline-variant/30 text-sm">
+              <span className="font-label-md text-on-surface">{size}</span>
+              <button
+                type="button"
+                onClick={() => removeSize(size)}
+                className="text-on-surface-variant hover:text-error transition-colors p-0.5 rounded-full flex items-center justify-center"
+              >
+                <span className="material-symbols-outlined text-[14px]">close</span>
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ── Shared text fields ────────────────────────────────────────────────────
 function TextFields({ values, onChange }) {
   return (
@@ -165,7 +235,7 @@ export default function Products() {
 
     try {
       setSaving(true);
-      await addProduct({ ...newProduct, images: cleanImages, img: cleanImages[0] });
+      await addProduct({ ...newProduct, images: cleanImages, img: cleanImages[0], sizes: newProduct.sizes });
       await loadProducts();
       setIsAdding(false);
       setNewProduct(emptyForm);
@@ -184,6 +254,7 @@ export default function Products() {
       category: product.category,
       description: product.description,
       images: product.images?.length ? product.images : [product.img || ''],
+      sizes: product.sizes || [],
     });
   }
 
@@ -205,6 +276,7 @@ export default function Products() {
         description: editForm.description,
         images: cleanImages,
         img: cleanImages[0],
+        sizes: editForm.sizes,
       });
       await loadProducts();
       closeEdit();
@@ -251,6 +323,10 @@ export default function Products() {
             <ImageUrlsInput
               images={newProduct.images}
               onChange={imgs => setNewProduct({ ...newProduct, images: imgs })}
+            />
+            <SizesInput
+              sizes={newProduct.sizes}
+              onChange={szs => setNewProduct({ ...newProduct, sizes: szs })}
             />
             <div className="h-px bg-outline-variant/20" />
             {/* Text fields */}
@@ -423,6 +499,10 @@ export default function Products() {
               <ImageUrlsInput
                 images={editForm.images}
                 onChange={imgs => setEditForm({ ...editForm, images: imgs })}
+              />
+              <SizesInput
+                sizes={editForm.sizes}
+                onChange={szs => setEditForm({ ...editForm, sizes: szs })}
               />
               <div className="h-px bg-outline-variant/20" />
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

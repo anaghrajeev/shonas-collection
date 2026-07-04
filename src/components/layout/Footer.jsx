@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
-    <footer className="w-full px-margin-mobile md:px-margin-desktop py-16 flex flex-col items-center gap-base text-center bg-primary-container dark:bg-primary-container mt-24">
+    <footer className="w-full px-margin-mobile md:px-margin-desktop py-12 md:py-16 flex flex-col items-center gap-base text-center bg-primary-container dark:bg-primary-container mt-24">
       <img alt="Shona's Collection Logo" className="h-16 md:h-20 w-auto object-contain mb-4" src="/logo.png" />
       <h2 className="font-display-lg text-on-primary-container tracking-wider mb-8">SHONA'S COLLECTION</h2>
       <ul className="flex flex-wrap justify-center gap-8 mb-8">

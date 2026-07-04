@@ -10,6 +10,7 @@ function mapProduct(row) {
     description: row.description,
     img: row.img,
     images: row.images || (row.img ? [row.img] : []),
+    sizes: row.sizes || [],
     inStock: row.in_stock,
     created_at: row.created_at,
   };
@@ -34,6 +35,7 @@ export async function addProduct(product) {
       description: product.description,
       img: imagesArray[0] || '',
       images: imagesArray,
+      sizes: product.sizes || [],
       in_stock: true,
     }])
     .select();
@@ -77,6 +79,7 @@ export async function updateProduct(productId, updates) {
       description: updates.description,
       img: imagesArray[0] || '',
       images: imagesArray,
+      sizes: updates.sizes || [],
     })
     .eq('id', productId)
     .select();

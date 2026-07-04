@@ -8,7 +8,7 @@ export default function StoreLayout() {
   return (
     <div className="flex flex-col min-h-screen">
       <TopNavBar />
-      <main className="flex-grow">
+      <main className="flex-grow pb-16 xl:pb-0">
         <Outlet />
       </main>
       <Footer />
