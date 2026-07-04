@@ -8,9 +8,9 @@ const WHATSAPP_NUMBER = '919656777404';
 function waLink(product, size, variantIndex) {
   const websiteUrl = `${window.location.origin}/product/${product.id}?variant=${variantIndex}`;
   
-  let text = `*(Note: Please click the 'Send' button to submit this inquiry.)*\n\nHello Shona's Collection! ✨\n\nI would like to place an order for the following item:\n\n🛍️ *Product:* ${product.name}\n`;
+  let text = `Hello Shona's Collection! ✨\n\nI would like to place an order for the following item:\n\n🛍️ *Product:* ${product.name}\n`;
   if (size) text += `📏 *Size:* ${size}\n`;
-  text += `🔗 *Variant Link:* ${websiteUrl}`;
+  text += `🔗 *Variant Link:* ${websiteUrl}\n\n*(Note: Please click the 'Send' button to submit this inquiry.)*`;
   
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
 }

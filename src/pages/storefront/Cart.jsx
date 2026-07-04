@@ -10,7 +10,7 @@ export default function Cart() {
   const handleWhatsAppCheckout = () => {
     if (cart.length === 0) return;
 
-    let text = `*(Note: Please click the 'Send' button to submit this order inquiry.)*\n\nHello Shona's Collection! ✨\n\nI would like to place an order for the following items:\n\n`;
+    let text = `Hello Shona's Collection! ✨\n\nI would like to place an order for the following items:\n\n`;
 
     cart.forEach((item, index) => {
       const websiteUrl = `${window.location.origin}/product/${item.product.id}?variant=${item.variantIndex}`;
@@ -19,6 +19,8 @@ export default function Cart() {
       text += `   📦 *Quantity:* ${item.quantity}\n`;
       text += `   🔗 *Variant:* ${websiteUrl}\n\n`;
     });
+
+    text += `*(Note: Please click the 'Send' button below to submit this order inquiry.)*`;
 
     const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
     window.open(waLink, '_blank');
